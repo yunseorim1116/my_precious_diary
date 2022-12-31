@@ -1,7 +1,8 @@
 import Button from "../component/share/Button";
 
 const MainContainer = () => {
-  const keepAdiary = () => {};
+  const keepDiary = () => {};
+
   return (
     <>
       <p>소중한 나의 감정 기록장</p>
