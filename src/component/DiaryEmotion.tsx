@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { EmotionType } from "../type/EmotionType";
 interface propsType {
   emotion: EmotionType;
-  selectEmotion: (emotion: EmotionType) => void;
-  selectedEmotion: EmotionType;
+  selectEmotion?: (emotion: EmotionType) => void;
+  selectedEmotion?: EmotionType;
 }
-const Emotion = ({ emotion, selectEmotion, selectedEmotion }: propsType) => {
+const DiaryEmotion = ({
+  emotion,
+  selectEmotion,
+  selectedEmotion,
+}: propsType) => {
   return (
     <Ul selectedEmotion={selectedEmotion} emotion={emotion}>
       <EmotionItem
         onClick={() => {
-          selectEmotion(emotion);
+          selectEmotion && selectEmotion(emotion);
         }}
         src={emotion.imgUrl}
       />
@@ -20,7 +23,7 @@ const Emotion = ({ emotion, selectEmotion, selectedEmotion }: propsType) => {
 };
 
 interface EmotionBackType {
-  selectedEmotion: any;
+  selectedEmotion: EmotionType | undefined;
   emotion: EmotionType;
 }
 const Ul = styled.ul<EmotionBackType>`
@@ -40,4 +43,4 @@ const EmotionItem = styled.img`
   object-fit: cover;
   cursor: pointer;
 `;
-export default Emotion;
+export default DiaryEmotion;

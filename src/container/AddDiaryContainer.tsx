@@ -1,45 +1,20 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Button from "../component/share/Button";
 import { useState } from "react";
 import styled from "styled-components";
-import Emotion from "../component/Emotion";
+import DiaryEmotion from "../component/DiaryEmotion";
 import { EmotionType } from "../type/EmotionType";
+import { calculateTime } from "../utils/calculateTime";
+import { emotionArr } from "../data/emotionData";
+import { setLocalStorage } from "../utils/storage";
+import { createId } from "../utils/createId";
 
 const AddDiaryContainer = () => {
-  const imgUrl = "/assets/img/";
-  const emotionArr = [
-    {
-      imgUrl: `${imgUrl}매우좋음_5.png`,
-      grade: 5,
-      id: "매우좋음5",
-    },
-    {
-      imgUrl: `${imgUrl}좋음_4.png`,
-      grade: 4,
-      id: "좋음4",
-    },
-    {
-      imgUrl: `${imgUrl}무난_3.png`,
-      grade: 3,
-      id: "무난3",
-    },
-    {
-      imgUrl: `${imgUrl}슬픔_2.png`,
-      grade: 2,
-      id: "슬픔2",
-    },
-    {
-      imgUrl: `${imgUrl}화남_1.png`,
-      grade: 1,
-      id: "화남1",
-    },
-  ];
-
   const [emotionList, setEmotionList] = useState<EmotionType[]>(emotionArr);
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType>(
     emotionList[2]
   );
-  const today = new Date();
+
   const diaryContent = useRef<any>("");
   const diaryTitle = useRef<any>("");
 
@@ -48,21 +23,21 @@ const AddDiaryContainer = () => {
   };
 
   const submitAddDiary = () => {
+    const dateTime = calculateTime();
+    const diaryId = createId();
+
     const diaryData = {
       diaryTitle: diaryTitle.current.value,
       diaryContent: diaryContent.current.value,
       emotionStatus: selectedEmotion,
-      diaryDate: today.toLocaleString().slice(0, 12),
+      diaryDate: dateTime,
+      diaryId,
     };
+
+    setLocalStorage(diaryData);
 
     if (diaryData.diaryContent === "" || diaryData.diaryTitle === "") return;
 
-    const localItem = localStorage.getItem("myDiaryList") as string;
-    let diaryList = JSON.parse(localItem) as any;
-    if (diaryList === null) diaryList = [];
-    diaryList.push(diaryData);
-    const parseSting = JSON.stringify(diaryList) as string;
-    localStorage.setItem("myDiaryList", parseSting);
     diaryContent.current.value = "";
     diaryTitle.current.value = "";
   };
@@ -77,7 +52,7 @@ const AddDiaryContainer = () => {
         {emotionList?.map((emotion: EmotionType) => {
           return (
             <>
-              <Emotion
+              <DiaryEmotion
                 key={emotion.id}
                 emotion={emotion}
                 selectEmotion={selectEmotion}
@@ -89,11 +64,7 @@ const AddDiaryContainer = () => {
       </ul>
       <input placeholder="제목" ref={diaryTitle}></input>
       <div>
-        <DiaryContent
-          placeholder="여기에 입력하세요"
-          ref={diaryContent}
-          value={diaryContent.current.textContent}
-        />
+        <DiaryContent placeholder="여기에 입력하세요" ref={diaryContent} />
       </div>
       <Button clickFunction={submitAddDiary} text="일기등록" />
     </DiaryContainer>
