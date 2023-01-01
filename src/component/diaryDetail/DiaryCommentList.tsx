@@ -18,7 +18,7 @@ const DiaryCommentList = ({
 
     setCommentList(newCommentList); //화면에서 삭제
 
-    const localDiaryData = getLocalStorage();
+    const localDiaryData = getLocalStorage(DIARY_KEY);
     const findIndex = localDiaryData.findIndex((item) => item.diaryId === id);
     const findCommentIndex = localDiaryData[findIndex].commentData.findIndex(
       (item) => comment.commentId === item.commentId

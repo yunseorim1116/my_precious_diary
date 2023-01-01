@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Button from "../component/share/Button";
 import { useState } from "react";
 import styled from "styled-components";
@@ -6,14 +6,28 @@ import DiaryEmotion from "../component/share/DiaryEmotion";
 import { EmotionType } from "../type/EmotionType";
 import { calculateTime } from "../utils/calculateTime";
 import { emotionArr } from "../data/emotionData";
-import { setLocalStorage } from "../utils/storage";
+import { setLocalStorage, getLocalStorage } from "../utils/storage";
 import { createId } from "../utils/createId";
+import { DiaryCommentType, DiaryType } from "../type/DiaryType";
+import { useLocation } from "react-router";
+import { DIARY_KEY } from "../common/string";
 
-const AddDiaryContainer = () => {
+const AddDiaryContainer = ({ diaryData }: any) => {
+  const { state } = useLocation();
+  const [isEdit, setIsEdit] = useState(false);
   const [emotionList, setEmotionList] = useState<EmotionType[]>(emotionArr);
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType>(
     emotionList[2]
   );
+
+  useEffect(() => {
+    if (!state) return;
+    const { diaryDataObj } = state;
+    setSelectedEmotion(diaryDataObj.emotionStatus);
+    setIsEdit(true);
+    diaryContent.current.value = diaryDataObj.diaryContent;
+    diaryTitle.current.value = diaryDataObj.diaryTitle;
+  }, []);
 
   const diaryContent = useRef<any>("");
   const diaryTitle = useRef<any>("");
@@ -35,7 +49,19 @@ const AddDiaryContainer = () => {
       commentData: [],
     };
 
-    setLocalStorage(diaryData);
+    if (state) {
+      const { diaryDataObj } = state;
+      diaryData.diaryId = diaryDataObj.id;
+      const localDiaryData = getLocalStorage(DIARY_KEY);
+
+      const findIndex = localDiaryData.findIndex(
+        (item) => item.diaryId === diaryDataObj.id
+      );
+
+      localDiaryData[findIndex] = diaryData;
+      const parseSting = JSON.stringify(localDiaryData) as string;
+      localStorage.setItem(DIARY_KEY, parseSting);
+    } else setLocalStorage(diaryData);
 
     if (diaryData.diaryContent === "" || diaryData.diaryTitle === "") return;
 

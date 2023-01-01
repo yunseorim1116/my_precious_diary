@@ -5,6 +5,7 @@ import DiaryList from "../component/diaryList/DiaryList";
 import { DiaryType } from "../type/DiaryType";
 import styled from "styled-components";
 import { getLocalStorage } from "../utils/storage";
+import { DIARY_KEY } from "../common/string";
 const DiaryListContainer = () => {
   const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
   const [date, setDate] = useState<string>("");
@@ -24,7 +25,7 @@ const DiaryListContainer = () => {
   };
 
   useEffect(() => {
-    const diaryList = getLocalStorage();
+    const diaryList = getLocalStorage(DIARY_KEY);
     const dateMonth = calculateTime().slice(5, 7).replace(/(^0+)/, "");
 
     const dateStr = calculateTime().slice(0, 7);

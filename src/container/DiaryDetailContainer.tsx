@@ -9,14 +9,22 @@ import { DIARY_KEY } from "../common/string";
 import DiaryCommentList from "../component/diaryDetail/DiaryCommentList";
 
 const DiaryDetailContainer = () => {
+  const data = {
+    diaryTitle: "",
+    diaryContent: "",
+    emotionStatus: { imgUrl: "", grade: 0, id: "string" },
+    diaryDate: "",
+    diaryId: "",
+    commentData: [],
+  };
+
   const { id } = useParams();
-  const [diaryData, setDiaryData] = useState<DiaryType>();
+  const [diaryData, setDiaryData] = useState<DiaryType>(data);
   const [commentList, setCommentList] = useState<DiaryCommentType[]>([]);
   const commentRef = useRef<any>("");
 
   const addComment = () => {
     if (!id) return;
-    if (!commentRef.current.value) return;
 
     const commentData: DiaryCommentType = {
       commentId: createId(),
@@ -24,10 +32,12 @@ const DiaryDetailContainer = () => {
     };
     getCommentData(commentData, id);
     setCommentList([...commentList, commentData]);
+    commentRef.current.value = "";
   };
 
   const findDiary = () => {
-    const diaryData = getLocalStorage();
+    const diaryData = getLocalStorage(DIARY_KEY);
+
     const detailDiary = diaryData.filter((diary) => diary.diaryId === id)[0];
     return detailDiary;
   };
@@ -40,8 +50,9 @@ const DiaryDetailContainer = () => {
 
   return (
     <>
-      {diaryData && <DiaryDetailContent diaryData={diaryData} />}
-      <div>ㅎㅇ</div>
+      {}
+
+      <DiaryDetailContent diaryData={diaryData} />
       <DiaryComment commentRef={commentRef} addComment={addComment} />
       {commentList?.map((comment) => (
         <DiaryCommentList
