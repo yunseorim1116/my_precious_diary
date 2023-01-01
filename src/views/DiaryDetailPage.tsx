@@ -1,7 +1,8 @@
+import DiaryDetailContainer from "../container/DiaryDetailContainer";
 const DiaryDetailPage = () => {
   return (
     <>
-      <DiaryDetailPage />
+      <DiaryDetailContainer />
     </>
   );
 };

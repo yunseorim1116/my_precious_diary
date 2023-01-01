@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { EmotionType } from "../type/EmotionType";
+import { EmotionType } from "../../type/EmotionType";
 interface propsType {
   emotion: EmotionType;
   selectEmotion?: (emotion: EmotionType) => void;
