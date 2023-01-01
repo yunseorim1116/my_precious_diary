@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Button from "../component/share/Button";
 import { useState } from "react";
 import styled from "styled-components";
-import DiaryEmotion from "../component/DiaryEmotion";
+import DiaryEmotion from "../component/share/DiaryEmotion";
 import { EmotionType } from "../type/EmotionType";
 import { calculateTime } from "../utils/calculateTime";
 import { emotionArr } from "../data/emotionData";
@@ -32,6 +32,7 @@ const AddDiaryContainer = () => {
       emotionStatus: selectedEmotion,
       diaryDate: dateTime,
       diaryId,
+      commentData: [],
     };
 
     setLocalStorage(diaryData);

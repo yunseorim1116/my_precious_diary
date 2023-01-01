@@ -1,3 +1,3 @@
 export const createId = function () {
-    return Date.now();
+    return Date.now().toString();
   }

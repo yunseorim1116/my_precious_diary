@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { DIARY_KEY } from "../common/string";
 import { calculateTime } from "../utils/calculateTime";
 
-import DiaryList from "../component/DiaryList";
+import DiaryList from "../component/diaryList/DiaryList";
 import { DiaryType } from "../type/DiaryType";
-import EmotionAverage from "../type/EmotionAverage";
 import styled from "styled-components";
+import { getLocalStorage } from "../utils/storage";
 const DiaryListContainer = () => {
-  const [diaryListData, setDiaryList] = useState([]);
+  const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
   const [date, setDate] = useState<string>("");
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
 
@@ -25,20 +24,17 @@ const DiaryListContainer = () => {
   };
 
   useEffect(() => {
-    const localItem = localStorage.getItem(DIARY_KEY) as string;
-    let diaryList = JSON.parse(localItem) as any;
+    const diaryList = getLocalStorage();
+    const dateMonth = calculateTime().slice(5, 7).replace(/(^0+)/, "");
 
     const dateStr = calculateTime().slice(0, 7);
-    const dateMonth = calculateTime().slice(5, 7).replace(/(^0+)/, "");
-    setDate(dateMonth + "월");
-
     const newData = diaryList.filter((item: DiaryType) => {
       const dateMonth = item.diaryDate.slice(0, 7);
       return dateMonth === dateStr;
     });
 
+    setDate(dateMonth + "월");
     calculateEmotionGrade(newData);
-
     setDiaryList(diaryList);
   }, []);
   return (
@@ -52,8 +48,9 @@ const DiaryListContainer = () => {
             </>
           );
         })}
-        <div>이번달 감정 점수{emotionAverage} 점이요</div>
-        <EmotionAverage />
+        <EmotionAvg>
+          이번달 감정 점수<Avg> {emotionAverage}</Avg> 점이요
+        </EmotionAvg>
       </div>
     </>
   );
@@ -63,6 +60,15 @@ const Month = styled.div`
   font-size: 32px;
   text-align: center;
   padding: 30px;
+`;
+
+const Avg = styled.span`
+  font-size: 25px;
+`;
+
+const EmotionAvg = styled.div`
+  font-size: 18px;
+  text-align: center;
 `;
 
 export default DiaryListContainer;
