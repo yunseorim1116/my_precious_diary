@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { EmotionType } from "../../type/EmotionType";
 interface propsType {
@@ -31,7 +32,7 @@ const Ul = styled.ul<EmotionBackType>`
   color: #89a0aa;
   display: inline-block;
   background-color: ${(props) =>
-    props.emotion === props.selectedEmotion ? "#89a0aa" : "#dddddd"};
+    props.emotion.id === props.selectedEmotion?.id ? "#bdd1d7" : "#ebe9e9"};
   border-radius: 4px;
   width: 100px;
   height: 100px;

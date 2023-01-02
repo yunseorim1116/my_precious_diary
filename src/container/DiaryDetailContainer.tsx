@@ -1,59 +1,108 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
-import { getCommentData, getLocalStorage } from "../utils/storage";
+import { useNavigate, useParams } from "react-router";
+import {
+  findItemIndex,
+  getCommentData,
+  getLocalStorageData,
+} from "../utils/storage";
+import styled from "styled-components";
 import { DiaryCommentType, DiaryType } from "../type/DiaryType";
 import DiaryDetailContent from "../component/diaryDetail/DiaryDetailContent";
 import DiaryComment from "../component/diaryDetail/DiaryComment";
 import { createId } from "../utils/createId";
 import { DIARY_KEY } from "../common/string";
 import DiaryCommentList from "../component/diaryDetail/DiaryCommentList";
+import { Home } from "../router/routerPath";
 
 const DiaryDetailContainer = () => {
+  const navigate = useNavigate();
+  const data = {
+    diaryTitle: "",
+    diaryContent: "",
+    emotionStatus: { imgUrl: "", grade: 0, id: "string" },
+    diaryDate: "",
+    diaryId: "",
+    commentData: [],
+  };
+
   const { id } = useParams();
-  const [diaryData, setDiaryData] = useState<DiaryType>();
+  const [diaryData, setDiaryData] = useState<DiaryType>(data);
   const [commentList, setCommentList] = useState<DiaryCommentType[]>([]);
   const commentRef = useRef<any>("");
 
-  const addComment = () => {
-    if (!id) return;
-    if (!commentRef.current.value) return;
-
-    const commentData: DiaryCommentType = {
-      commentId: createId(),
-      commentContent: commentRef.current.value,
-    };
-    getCommentData(commentData, id);
-    setCommentList([...commentList, commentData]);
-  };
-
-  const findDiary = () => {
-    const diaryData = getLocalStorage();
-    const detailDiary = diaryData.filter((diary) => diary.diaryId === id)[0];
-    return detailDiary;
-  };
-
   useEffect(() => {
+    if (!id) return;
+    const localDiaryData = getLocalStorageData(DIARY_KEY);
+    const findIndex = findItemIndex(localDiaryData, id);
+
+    if (findIndex === -1) {
+      goToMainPage();
+      return;
+    }
+
     const detailDiary = findDiary();
     setDiaryData(detailDiary);
     setCommentList(detailDiary.commentData);
   }, []);
 
+  const goToMainPage = () => {
+    navigate(Home);
+  };
+  const addComment = () => {
+    if (!id) return;
+
+    const commentData: DiaryCommentType = {
+      commentId: createId(),
+      commentContent: commentRef.current.value,
+    };
+
+    getCommentData(commentData, id);
+    setCommentList([...commentList, commentData]);
+    commentRef.current.value = "";
+  };
+
+  const findDiary = () => {
+    const diaryData = getLocalStorageData(DIARY_KEY);
+    const detailDiary = diaryData.filter((diary) => diary.diaryId === id)[0];
+    return detailDiary;
+  };
+
   return (
-    <>
-      {diaryData && <DiaryDetailContent diaryData={diaryData} />}
-      <div>ㅎㅇ</div>
-      <DiaryComment commentRef={commentRef} addComment={addComment} />
-      {commentList?.map((comment) => (
-        <DiaryCommentList
-          findDiary={findDiary}
-          commentList={commentList}
-          comment={comment}
-          setCommentList={setCommentList}
-          id={id}
+    <DetailContainer>
+      <DetailWrap>
+        <DiaryDetailContent diaryData={diaryData} goToMainPage={goToMainPage} />
+        <DiaryComment
+          commentRef={commentRef}
+          addComment={addComment}
+          goToMainPage={goToMainPage}
         />
-      ))}
-    </>
+        {commentList.map((comment) => (
+          <DiaryCommentList
+            findDiary={findDiary}
+            commentList={commentList}
+            comment={comment}
+            setCommentList={setCommentList}
+            id={id}
+          />
+        ))}
+      </DetailWrap>
+    </DetailContainer>
   );
 };
+
+const DetailWrap = styled.div`
+  background-color: #f9f9f9;
+  width: 700px;
+  height: 100vh;
+  text-align: center;
+  margin: auto;
+`;
+
+const DetailContainer = styled.div`
+  background-color: #bfcbdc;
+  width: 100vw;
+  height: auto;
+  text-align: center;
+`;
 
 export default DiaryDetailContainer;

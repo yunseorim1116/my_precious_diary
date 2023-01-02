@@ -6,6 +6,7 @@ import reset from "styled-reset";
 import DiaryListPage from "./views/DiaryListPage";
 import AddDiaryPage from "./views/AddDiaryPage";
 import DiaryDetailPage from "./views/DiaryDetailPage";
+import "./font.css";
 function App() {
   const GlobalStyle = createGlobalStyle`
   ${reset}

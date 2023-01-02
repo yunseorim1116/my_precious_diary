@@ -23,20 +23,24 @@ const DiaryList = ({ diary }: propsType) => {
             <Title>{diary.diaryTitle}</Title>
             <div>{diary.diaryDate}</div>
           </TitleWarp>
-          <div>{diary.diaryContent}</div>
+          <DiaryContent>{diary.diaryContent}</DiaryContent>
         </div>
       </DiaryContentWrap>
     </DiaryListContainer>
   );
 };
 
+const DiaryContent = styled.div`
+  text-align: left;
+`;
+
 const DiaryContentWrap = styled.span`
   padding: 20px;
 `;
 
 const Title = styled.div`
-  font-weight: 700;
-  font-size: 18px;
+  font-family: "FlowerSalt";
+  font-size: 28px;
 `;
 const TitleWarp = styled.div`
   margin-bottom: 10px;
