@@ -6,13 +6,15 @@ import DiaryEmotion from "../component/share/DiaryEmotion";
 import { EmotionType } from "../type/EmotionType";
 import { calculateTime } from "../utils/calculateTime";
 import { emotionArr } from "../data/emotionData";
-import { setLocalStorage, getLocalStorage } from "../utils/storage";
+import { setDiaryData, getLocalStorageData } from "../utils/storage";
 import { createId } from "../utils/createId";
 import { DiaryCommentType, DiaryType } from "../type/DiaryType";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { DIARY_KEY } from "../common/string";
+import { DiaryList } from "../router/routerPath";
 
 const AddDiaryContainer = ({ diaryData }: any) => {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [isEdit, setIsEdit] = useState(false);
   const [emotionList, setEmotionList] = useState<EmotionType[]>(emotionArr);
@@ -23,7 +25,7 @@ const AddDiaryContainer = ({ diaryData }: any) => {
   useEffect(() => {
     if (!state) return;
     const { diaryDataObj } = state;
-    setSelectedEmotion(diaryDataObj.emotionStatus);
+    selectEmotion(diaryDataObj.emotionStatus);
     setIsEdit(true);
     diaryContent.current.value = diaryDataObj.diaryContent;
     diaryTitle.current.value = diaryDataObj.diaryTitle;
@@ -50,9 +52,10 @@ const AddDiaryContainer = ({ diaryData }: any) => {
     };
 
     if (state) {
+      // 수정
       const { diaryDataObj } = state;
       diaryData.diaryId = diaryDataObj.id;
-      const localDiaryData = getLocalStorage(DIARY_KEY);
+      const localDiaryData = getLocalStorageData(DIARY_KEY);
 
       const findIndex = localDiaryData.findIndex(
         (item) => item.diaryId === diaryDataObj.id
@@ -61,12 +64,11 @@ const AddDiaryContainer = ({ diaryData }: any) => {
       localDiaryData[findIndex] = diaryData;
       const parseSting = JSON.stringify(localDiaryData) as string;
       localStorage.setItem(DIARY_KEY, parseSting);
-    } else setLocalStorage(diaryData);
+    } else setDiaryData(diaryData);
 
     if (diaryData.diaryContent === "" || diaryData.diaryTitle === "") return;
 
-    diaryContent.current.value = "";
-    diaryTitle.current.value = "";
+    navigate(DiaryList);
   };
 
   return (

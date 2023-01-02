@@ -1,22 +1,34 @@
 import { DiaryType } from "../../type/DiaryType";
 import styled from "styled-components";
-import { AddDiary } from "../../router/routerPath";
-
+import { AddDiary, Home } from "../../router/routerPath";
 import { useNavigate } from "react-router";
-import { DIARY_KEY, DIARY_DETAIL_KEY } from "../../common/string";
-import { getLocalStorage } from "../../utils/storage";
+import { DiaryList } from "../../router/routerPath";
+import { getLocalStorageData, findItemIndex } from "../../utils/storage";
+import { DIARY_KEY } from "../../common/string";
+import { useEffect } from "react";
 interface PropsType {
   diaryData: DiaryType;
+  goToMainPage: () => void;
 }
-const DiaryDetailContent = ({ diaryData }: PropsType) => {
+const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   const navigate = useNavigate();
+  const { emotionStatus, diaryTitle, diaryContent, diaryId } = diaryData;
+
+  const onDeleteDiary = () => {
+    const localDiaryData = getLocalStorageData(DIARY_KEY);
+    const findIndex = findItemIndex(localDiaryData, diaryId);
+    localDiaryData.splice(findIndex, 1);
+    const parseSting = JSON.stringify(localDiaryData) as string;
+    localStorage.setItem(DIARY_KEY, parseSting);
+    goToMainPage();
+  };
 
   const onEditDiary = () => {
     const diaryDataObj = {
-      id: diaryData.diaryId,
-      emotionStatus: diaryData.emotionStatus,
-      diaryTitle: diaryData.diaryTitle,
-      diaryContent: diaryData.diaryContent,
+      id: diaryId,
+      emotionStatus: emotionStatus,
+      diaryTitle: diaryTitle,
+      diaryContent: diaryContent,
     };
     navigate(AddDiary, {
       state: {
@@ -27,9 +39,11 @@ const DiaryDetailContent = ({ diaryData }: PropsType) => {
 
   return (
     <>
-      <Title>{diaryData.diaryTitle}</Title>
+      <button>뒤로가기</button>
+      <Title>{diaryTitle}</Title>
       <button onClick={onEditDiary}>수정하기</button>
-      <div>{diaryData.diaryContent}</div>
+      <button onClick={onDeleteDiary}>삭제</button>
+      <div>{diaryContent}</div>
     </>
   );
 };

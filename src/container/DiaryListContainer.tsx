@@ -4,7 +4,7 @@ import { calculateTime } from "../utils/calculateTime";
 import DiaryList from "../component/diaryList/DiaryList";
 import { DiaryType } from "../type/DiaryType";
 import styled from "styled-components";
-import { getLocalStorage } from "../utils/storage";
+import { getLocalStorageData } from "../utils/storage";
 import { DIARY_KEY } from "../common/string";
 const DiaryListContainer = () => {
   const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
@@ -12,6 +12,7 @@ const DiaryListContainer = () => {
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
 
   const calculateEmotionGrade = (newData: any) => {
+    if (!newData.length) return 0;
     const gradeList = newData.map((item: DiaryType) => {
       return item.emotionStatus.grade;
     }); //타입을 위해서 gradeList 분리
@@ -25,7 +26,7 @@ const DiaryListContainer = () => {
   };
 
   useEffect(() => {
-    const diaryList = getLocalStorage(DIARY_KEY);
+    const diaryList = getLocalStorageData(DIARY_KEY);
     const dateMonth = calculateTime().slice(5, 7).replace(/(^0+)/, "");
 
     const dateStr = calculateTime().slice(0, 7);
