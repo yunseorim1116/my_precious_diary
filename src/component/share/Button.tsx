@@ -7,15 +7,18 @@ const Button = ({ text, clickFunction }: propsType) => {
   return <ShareButton onClick={clickFunction}>{text}</ShareButton>;
 };
 const ShareButton = styled.button`
+  font-family: "FlowerSalt";
   cursor: pointer;
-  padding: 8px 15px;
-  font-size: 12px;
-  font-weight: 400;
+  padding: 15px 20px;
+  font-size: 28px;
+  font-weight: 800;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   width: auto;
   border: none;
   border-radius: 4px;
+  margin-bottom: 15px;
+  color: #424242;
 `;
 export default Button;

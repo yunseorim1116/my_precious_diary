@@ -21,7 +21,7 @@ const DiaryListContainer = () => {
       return cur + acc;
     }, 0);
 
-    const emotionAvg: number = resultAvg / gradeList.length;
+    const emotionAvg: number = Math.round(resultAvg / gradeList.length);
     setEmotionAverage(emotionAvg);
   };
 
@@ -41,29 +41,43 @@ const DiaryListContainer = () => {
   }, []);
   return (
     <ListContainer>
-      <Month>{date}</Month>
-      <div>
-        {diaryListData.map((diary: DiaryType) => {
-          return (
-            <>
-              <DiaryList diary={diary}></DiaryList>
-            </>
-          );
-        })}
-        <EmotionAvg>
-          이번달 감정 점수<Avg> {emotionAverage}</Avg> 점이요
-        </EmotionAvg>
-      </div>
+      <ListWrap>
+        <Month>{date}</Month>
+        <div>
+          {diaryListData.reverse().map((diary: DiaryType) => {
+            return (
+              <>
+                <DiaryList diary={diary}></DiaryList>
+              </>
+            );
+          })}
+          <EmotionAvgWrap>
+            <EmotionAvg>
+              이번달 감정 점수<Avg> {emotionAverage}</Avg> 점이요
+            </EmotionAvg>
+          </EmotionAvgWrap>
+        </div>
+      </ListWrap>
     </ListContainer>
   );
 };
 
 const ListContainer = styled.div`
-  width: 700px;
-  margin: auto;
+  background-color: #bfcbdc;
+  width: 100vw;
+  height: auto;
   text-align: center;
 `;
 
+const ListWrap = styled.div`
+  font-family: "GangwonEdu_OTFBoldA";
+  cursor: pointer;
+  background-color: #f9f9f9;
+  width: 700px;
+  height: 100vh;
+  text-align: center;
+  margin: auto;
+`;
 const Month = styled.div`
   font-size: 32px;
   text-align: center;
@@ -72,11 +86,17 @@ const Month = styled.div`
 
 const Avg = styled.span`
   font-size: 25px;
+  font-weight: 800;
 `;
 
+const EmotionAvgWrap = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 const EmotionAvg = styled.div`
+  position: fixed;
+  bottom: 15px;
   font-size: 18px;
-  text-align: center;
 `;
 
 export default DiaryListContainer;

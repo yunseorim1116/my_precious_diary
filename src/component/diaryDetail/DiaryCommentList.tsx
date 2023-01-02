@@ -5,7 +5,6 @@ import {
   setLocalStorageData,
   findItemIndex,
 } from "../../utils/storage";
-
 import styled from "styled-components";
 import { DIARY_KEY } from "../../common/string";
 const DiaryCommentList = ({

@@ -78,11 +78,12 @@ const Content = styled.div`
 
 const DirayDate = styled.div`
   text-align: right;
-  padding-right: 3px;
+  padding-right: 10px;
   color: #adabab;
 `;
 
 const ContentWrap = styled.div`
+  font-family: "GangwonEdu_OTFBoldA";
   width: 700px;
 `;
 
@@ -125,7 +126,9 @@ const IconImg = styled.img`
 `;
 
 const DiaryTitle = styled.p`
+  font-family: "FlowerSalt";
+  font-weight: 600;
   padding: 15px;
-  font-size: 25px;
+  font-size: 35px;
 `;
 export default DiaryDetailContent;

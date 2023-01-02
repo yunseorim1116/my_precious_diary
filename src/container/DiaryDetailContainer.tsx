@@ -69,28 +69,39 @@ const DiaryDetailContainer = () => {
 
   return (
     <DetailContainer>
-      <DiaryDetailContent diaryData={diaryData} goToMainPage={goToMainPage} />
-      <DiaryComment
-        commentRef={commentRef}
-        addComment={addComment}
-        goToMainPage={goToMainPage}
-      />
-      {commentList.map((comment) => (
-        <DiaryCommentList
-          findDiary={findDiary}
-          commentList={commentList}
-          comment={comment}
-          setCommentList={setCommentList}
-          id={id}
+      <DetailWrap>
+        <DiaryDetailContent diaryData={diaryData} goToMainPage={goToMainPage} />
+        <DiaryComment
+          commentRef={commentRef}
+          addComment={addComment}
+          goToMainPage={goToMainPage}
         />
-      ))}
+        {commentList.map((comment) => (
+          <DiaryCommentList
+            findDiary={findDiary}
+            commentList={commentList}
+            comment={comment}
+            setCommentList={setCommentList}
+            id={id}
+          />
+        ))}
+      </DetailWrap>
     </DetailContainer>
   );
 };
 
-const DetailContainer = styled.div`
+const DetailWrap = styled.div`
+  background-color: #f9f9f9;
   width: 700px;
+  height: 100vh;
+  text-align: center;
   margin: auto;
+`;
+
+const DetailContainer = styled.div`
+  background-color: #bfcbdc;
+  width: 100vw;
+  height: auto;
   text-align: center;
 `;
 

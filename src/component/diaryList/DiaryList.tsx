@@ -39,8 +39,8 @@ const DiaryContentWrap = styled.span`
 `;
 
 const Title = styled.div`
-  font-weight: 700;
-  font-size: 18px;
+  font-family: "FlowerSalt";
+  font-size: 28px;
 `;
 const TitleWarp = styled.div`
   margin-bottom: 10px;
