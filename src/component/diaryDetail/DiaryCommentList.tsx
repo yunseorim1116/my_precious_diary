@@ -31,14 +31,39 @@ const DiaryCommentList = ({
   };
   return (
     <CommentContainer>
-      <div>{comment.commentContent}</div>
-      <button onClick={onDelete}>삭ㅈㅔ</button>
+      <CommentContent>{comment.commentContent}</CommentContent>
+      <Button onClick={onDelete}>삭ㅈㅔ</Button>
     </CommentContainer>
   );
 };
+
+const CommentContent = styled.div`
+  font-size: 18px;
+  margin-left: 20px;
+  align-items: center;
+  display: flex;
+  font-family: "GangwonEdu_OTFBoldA";
+`;
+const Button = styled.button`
+  font-family: "FlowerSalt";
+  cursor: pointer;
+  padding: 4px 20px;
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: auto;
+  border: none;
+  border-radius: 22px;
+  color: #746b6b;
+  margin-right: 15px;
+`;
 const CommentContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   cursor: printer;
+  margin-top: 30px;
 `;
 
 export default DiaryCommentList;
