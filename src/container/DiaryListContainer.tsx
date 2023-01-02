@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { calculateTime } from "../utils/calculateTime";
-
 import DiaryList from "../component/diaryList/DiaryList";
 import { DiaryType } from "../type/DiaryType";
 import styled from "styled-components";
@@ -13,6 +12,7 @@ const DiaryListContainer = () => {
 
   const calculateEmotionGrade = (newData: any) => {
     if (!newData.length) return 0;
+
     const gradeList = newData.map((item: DiaryType) => {
       return item.emotionStatus.grade;
     }); //타입을 위해서 gradeList 분리
@@ -40,7 +40,7 @@ const DiaryListContainer = () => {
     setDiaryList(diaryList);
   }, []);
   return (
-    <>
+    <ListContainer>
       <Month>{date}</Month>
       <div>
         {diaryListData.map((diary: DiaryType) => {
@@ -54,9 +54,15 @@ const DiaryListContainer = () => {
           이번달 감정 점수<Avg> {emotionAverage}</Avg> 점이요
         </EmotionAvg>
       </div>
-    </>
+    </ListContainer>
   );
 };
+
+const ListContainer = styled.div`
+  width: 700px;
+  margin: auto;
+  text-align: center;
+`;
 
 const Month = styled.div`
   font-size: 32px;

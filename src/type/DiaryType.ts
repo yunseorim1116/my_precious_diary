@@ -6,7 +6,7 @@ export interface DiaryCommentType {
 export interface DiaryType {
     diaryTitle: string,
     diaryContent: string,
-    emotionStatus: EmotionType,
+    emotionStatus: EmotionType ,
     diaryDate: string,
     diaryId:string
     commentData: [] | DiaryCommentType[]

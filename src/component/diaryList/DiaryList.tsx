@@ -23,12 +23,16 @@ const DiaryList = ({ diary }: propsType) => {
             <Title>{diary.diaryTitle}</Title>
             <div>{diary.diaryDate}</div>
           </TitleWarp>
-          <div>{diary.diaryContent}</div>
+          <DiaryContent>{diary.diaryContent}</DiaryContent>
         </div>
       </DiaryContentWrap>
     </DiaryListContainer>
   );
 };
+
+const DiaryContent = styled.div`
+  text-align: left;
+`;
 
 const DiaryContentWrap = styled.span`
   padding: 20px;

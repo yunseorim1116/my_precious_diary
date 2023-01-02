@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from "react-router";
 import { DIARY_KEY } from "../common/string";
 import { DiaryList } from "../router/routerPath";
 
-const AddDiaryContainer = ({ diaryData }: any) => {
+const AddDiaryContainer = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [isEdit, setIsEdit] = useState(false);
@@ -25,11 +25,12 @@ const AddDiaryContainer = ({ diaryData }: any) => {
   useEffect(() => {
     if (!state) return;
     const { diaryDataObj } = state;
-    selectEmotion(diaryDataObj.emotionStatus);
+    setSelectedEmotion(diaryDataObj.emotionStatus);
     setIsEdit(true);
     diaryContent.current.value = diaryDataObj.diaryContent;
     diaryTitle.current.value = diaryDataObj.diaryTitle;
   }, []);
+  useEffect(() => {}, []);
 
   const diaryContent = useRef<any>("");
   const diaryTitle = useRef<any>("");
@@ -42,7 +43,7 @@ const AddDiaryContainer = ({ diaryData }: any) => {
     const dateTime = calculateTime();
     const diaryId = createId();
 
-    const diaryData = {
+    const diaryData: DiaryType = {
       diaryTitle: diaryTitle.current.value,
       diaryContent: diaryContent.current.value,
       emotionStatus: selectedEmotion,
@@ -54,6 +55,7 @@ const AddDiaryContainer = ({ diaryData }: any) => {
     if (state) {
       // 수정
       const { diaryDataObj } = state;
+      if (!diaryData) return;
       diaryData.diaryId = diaryDataObj.id;
       const localDiaryData = getLocalStorageData(DIARY_KEY);
 
@@ -103,8 +105,9 @@ const AddDiaryContainer = ({ diaryData }: any) => {
 export default AddDiaryContainer;
 
 const DiaryContainer = styled.div`
-  text-align: center;
+  width: 700px;
   margin: auto;
+  text-align: center;
 `;
 const DiaryContent = styled.textarea`
   width: 500px;

@@ -5,6 +5,7 @@ import {
   getCommentData,
   getLocalStorageData,
 } from "../utils/storage";
+import styled from "styled-components";
 import { DiaryCommentType, DiaryType } from "../type/DiaryType";
 import DiaryDetailContent from "../component/diaryDetail/DiaryDetailContent";
 import DiaryComment from "../component/diaryDetail/DiaryComment";
@@ -67,9 +68,7 @@ const DiaryDetailContainer = () => {
   };
 
   return (
-    <>
-      {}
-
+    <DetailContainer>
       <DiaryDetailContent diaryData={diaryData} goToMainPage={goToMainPage} />
       <DiaryComment
         commentRef={commentRef}
@@ -85,8 +84,14 @@ const DiaryDetailContainer = () => {
           id={id}
         />
       ))}
-    </>
+    </DetailContainer>
   );
 };
+
+const DetailContainer = styled.div`
+  width: 700px;
+  margin: auto;
+  text-align: center;
+`;
 
 export default DiaryDetailContainer;

@@ -2,18 +2,24 @@ import { DiaryType } from "../../type/DiaryType";
 import styled from "styled-components";
 import { AddDiary, Home } from "../../router/routerPath";
 import { useNavigate } from "react-router";
-import { DiaryList } from "../../router/routerPath";
 import { getLocalStorageData, findItemIndex } from "../../utils/storage";
 import { DIARY_KEY } from "../../common/string";
-import { useEffect } from "react";
+import { useState } from "react";
+import DiaryEmotion from "../share/DiaryEmotion";
+
 interface PropsType {
   diaryData: DiaryType;
   goToMainPage: () => void;
 }
 const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
+  const [isClickButton, setIsClickButton] = useState(false);
   const navigate = useNavigate();
-  const { emotionStatus, diaryTitle, diaryContent, diaryId } = diaryData;
+  const { emotionStatus, diaryTitle, diaryContent, diaryId, diaryDate } =
+    diaryData;
 
+  const onToggleButton = () => {
+    setIsClickButton(!isClickButton);
+  };
   const onDeleteDiary = () => {
     const localDiaryData = getLocalStorageData(DIARY_KEY);
     const findIndex = findItemIndex(localDiaryData, diaryId);
@@ -38,17 +44,88 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   };
 
   return (
-    <>
-      <button>뒤로가기</button>
-      <Title>{diaryTitle}</Title>
-      <button onClick={onEditDiary}>수정하기</button>
-      <button onClick={onDeleteDiary}>삭제</button>
-      <div>{diaryContent}</div>
-    </>
+    <ContentWrap>
+      {isClickButton && (
+        <DiaryWrap>
+          <ModifyButtonBox>
+            <ModifyButton onClick={onEditDiary}>수정</ModifyButton>
+            <ModifyButton onClick={onDeleteDiary}>삭제</ModifyButton>
+          </ModifyButtonBox>
+        </DiaryWrap>
+      )}
+      <Header>
+        <IconImg
+          src="/assets/icon/back_arrow_icon.png"
+          onClick={goToMainPage}
+        />
+        <IconImg src="/assets/icon/kebab.png" onClick={onToggleButton} />
+      </Header>
+      <DiaryEmotion emotion={diaryData.emotionStatus}></DiaryEmotion>
+      <DiaryTitle>{diaryTitle}</DiaryTitle>
+      <DirayDate>{diaryDate}</DirayDate>
+      <Content>{diaryContent}</Content>
+    </ContentWrap>
   );
 };
-const Title = styled.p`
+
+const Content = styled.div`
+  padding: 20px;
+  width: 700px;
+  height: 300px;
+  text-align: left;
+  font-size: 18px;
+`;
+
+const DirayDate = styled.div`
+  text-align: right;
+  padding-right: 3px;
+  color: #adabab;
+`;
+
+const ContentWrap = styled.div`
+  width: 700px;
+`;
+
+const DiaryWrap = styled.div`
+  position: absolute;
+  top: 45px;
+  right: 420px;
+`;
+
+const ModifyButton = styled.div`
+  width: 80px;
+  &:hover {
+    background-color: #cad0d2;
+    font-weight: 800;
+    color: white;
+    border-radius: 4px;
+  }
+  cursor: pointer;
+  padding: 10px;
+  color: #575757;
+`;
+
+const ModifyButtonBox = styled.div`
+  font-weight: 800;
+  border-radius: 4px;
+  color: #e0e0e0;
+  box-shadow: 5px 5px 20px;
+`;
+
+const Header = styled.div`
+  max-width: 700px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+`;
+
+const IconImg = styled.img`
+  cursor: pointer;
+  width: 35px;
+`;
+
+const DiaryTitle = styled.p`
+  padding: 15px;
   font-size: 25px;
-  margin-bottom: 25px;
 `;
 export default DiaryDetailContent;
