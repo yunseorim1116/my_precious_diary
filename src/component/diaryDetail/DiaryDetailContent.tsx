@@ -45,6 +45,13 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
 
   return (
     <ContentWrap>
+      <Header>
+        <IconImg
+          src="/assets/icon/back_arrow_icon.png"
+          onClick={goToMainPage}
+        />
+        <IconImg src="/assets/icon/kebab.png" onClick={onToggleButton} />
+      </Header>
       {isClickButton && (
         <DiaryWrap>
           <ModifyButtonBox>
@@ -53,30 +60,32 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
           </ModifyButtonBox>
         </DiaryWrap>
       )}
-      <Header>
-        <IconImg
-          src="/assets/icon/back_arrow_icon.png"
-          onClick={goToMainPage}
-        />
-        <IconImg src="/assets/icon/kebab.png" onClick={onToggleButton} />
-      </Header>
-      <DiaryEmotion emotion={diaryData.emotionStatus}></DiaryEmotion>
-      <DiaryTitle>{diaryTitle}</DiaryTitle>
-      <DirayDate>{diaryDate}</DirayDate>
-      <Content>{diaryContent}</Content>
+
+      <ContentBox>
+        <DiaryEmotion emotion={diaryData.emotionStatus}></DiaryEmotion>
+        <DiaryTitle>{diaryTitle}</DiaryTitle>
+        <DirayDate>{diaryDate}</DirayDate>
+        <Content>{diaryContent}</Content>
+      </ContentBox>
     </ContentWrap>
   );
 };
 
+const ContentBox = styled.div`
+  padding: 0px 20px;
+`;
+
 const Content = styled.div`
+  background-color: white;
+  border-radius: 18px;
   padding: 20px;
-  width: 700px;
   height: 300px;
   text-align: left;
   font-size: 18px;
 `;
 
 const DirayDate = styled.div`
+  margin-bottom: 30px;
   text-align: right;
   padding-right: 10px;
   color: #adabab;
@@ -117,7 +126,7 @@ const Header = styled.div`
   max-width: 700px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px 20px;
 `;
 
 const IconImg = styled.img`

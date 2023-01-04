@@ -32,7 +32,7 @@ const Ul = styled.ul<EmotionBackType>`
   color: #89a0aa;
   display: inline-block;
   background-color: ${(props) =>
-    props.emotion.id === props.selectedEmotion?.id ? "#bdd1d7" : "#ebe9e9"};
+    props.emotion.id === props.selectedEmotion?.id ? "#cbd7db" : "none"};
   border-radius: 4px;
   width: 100px;
   height: 100px;

@@ -93,14 +93,18 @@ const DiaryDetailContainer = () => {
 const DetailWrap = styled.div`
   background-color: #f9f9f9;
   width: 700px;
+  height: 100vh;
   text-align: center;
   margin: auto;
 `;
 
 const DetailContainer = styled.div`
+  height: 100vh;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   background-color: #bfcbdc;
-  width: 100%;
-  height: auto;
   text-align: center;
 `;
 

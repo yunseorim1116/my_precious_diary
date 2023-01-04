@@ -79,7 +79,7 @@ const AddDiaryContainer = () => {
         <EmotionWrap>
           <EmotionTitle>오늘의 나의 기분은 어떤가요?</EmotionTitle>
           <ul>
-            {emotionList?.map((emotion: EmotionType) => {
+            {emotionList.map((emotion: EmotionType) => {
               return (
                 <>
                   <DiaryEmotion
