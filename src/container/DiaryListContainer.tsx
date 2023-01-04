@@ -44,11 +44,10 @@ const DiaryListContainer = () => {
       <ListWrap>
         <EmotionAvgWrap>
           <EmotionAvg>
-            이번달 감정 점수는<Avg> {emotionAverage}</Avg> 점 이에용
+            이번달 감정 점수는<Avg> {emotionAverage}</Avg> 점 이에요!
           </EmotionAvg>
         </EmotionAvgWrap>
         <Month>{date}</Month>
-
         <DiaryListWrap>
           {diaryListData.map((diary: DiaryType) => {
             return (

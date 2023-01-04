@@ -4,19 +4,24 @@ import { AddDiary, Home } from "../../router/routerPath";
 import { useNavigate } from "react-router";
 import { getLocalStorageData, findItemIndex } from "../../utils/storage";
 import { DIARY_KEY } from "../../common/string";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DiaryEmotion from "../share/DiaryEmotion";
-
+import { calculateTime } from "../../utils/calculateTime";
 interface PropsType {
   diaryData: DiaryType;
   goToMainPage: () => void;
 }
 const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   const [isClickButton, setIsClickButton] = useState(false);
+  const [isToday, setIsToday] = useState(false);
   const navigate = useNavigate();
   const { emotionStatus, diaryTitle, diaryContent, diaryId, diaryDate } =
     diaryData;
 
+  useEffect(() => {
+    const todayDate = calculateTime();
+    if (todayDate === diaryDate) setIsToday(true);
+  });
   const onToggleButton = () => {
     setIsClickButton(!isClickButton);
   };
@@ -55,7 +60,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
       {isClickButton && (
         <DiaryWrap>
           <ModifyButtonBox>
-            <ModifyButton onClick={onEditDiary}>수정</ModifyButton>
+            {isToday && <ModifyButton onClick={onEditDiary}>수정</ModifyButton>}
             <ModifyButton onClick={onDeleteDiary}>삭제</ModifyButton>
           </ModifyButtonBox>
         </DiaryWrap>
