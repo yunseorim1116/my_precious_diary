@@ -38,7 +38,7 @@ const DiaryCommentList = ({
 
 const CommentContent = styled.div`
   font-size: 18px;
-  margin-left: 20px;
+  margin-left: 30px;
   align-items: center;
   display: flex;
   font-family: "GangwonEdu_OTFBoldA";
@@ -59,10 +59,11 @@ const Button = styled.button`
   margin-right: 15px;
 `;
 const CommentContainer = styled.div`
+  background-color: #f9f9f9;
   display: flex;
   justify-content: space-between;
-  cursor: printer;
-  margin-top: 30px;
+  cursor: pointer;
+  padding: 15px 0px;
 `;
 
 export default DiaryCommentList;

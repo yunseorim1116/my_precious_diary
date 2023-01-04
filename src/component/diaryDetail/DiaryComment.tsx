@@ -4,7 +4,7 @@ const DiaryComment = ({ commentRef, addComment }: any) => {
   return (
     <CommentWrap>
       <CommentInput
-        placeholder="댓글입력하시긔"
+        placeholder="댓글을 입력하세요!"
         ref={commentRef}
       ></CommentInput>
       <Button onClick={addComment}>등록</Button>
@@ -13,6 +13,7 @@ const DiaryComment = ({ commentRef, addComment }: any) => {
 };
 
 const CommentWrap = styled.form`
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
 `;

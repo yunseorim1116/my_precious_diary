@@ -48,7 +48,8 @@ const DiaryListContainer = () => {
           </EmotionAvg>
         </EmotionAvgWrap>
         <Month>{date}</Month>
-        <div>
+
+        <DiaryListWrap>
           {diaryListData.map((diary: DiaryType) => {
             return (
               <>
@@ -56,17 +57,25 @@ const DiaryListContainer = () => {
               </>
             );
           })}
-        </div>
+        </DiaryListWrap>
       </ListWrap>
     </ListContainer>
   );
 };
 
+const DiaryListWrap = styled.div`
+  padding: 10px 40px;
+`;
+
 const ListContainer = styled.div`
   background-color: #bfcbdc;
-  width: 100%;
-  height: auto;
+  height: 100vh;
+  overflow: auto
   text-align: center;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ListWrap = styled.div`
@@ -74,13 +83,20 @@ const ListWrap = styled.div`
   cursor: pointer;
   background-color: #f9f9f9;
   width: 700px;
-  text-align: center;
+  height: 100vh;
   margin: auto;
+  overflow: auto
+  text-align: center;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Month = styled.div`
   font-size: 32px;
   text-align: center;
   padding-top: 100px;
+  padding-bottom: 25px;
 `;
 
 const Avg = styled.span`
