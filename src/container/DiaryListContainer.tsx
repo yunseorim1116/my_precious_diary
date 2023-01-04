@@ -27,15 +27,15 @@ const DiaryListContainer = () => {
 
   useEffect(() => {
     const diaryList = getLocalStorageData(DIARY_KEY);
-    const dateMonth = calculateTime().slice(5, 7).replace(/(^0+)/, "");
+    const dateMonth = calculateTime().slice(0, 7); //년 + 월
+    const onlyMonth = dateMonth.slice(5, 8); // only 월
 
-    const dateStr = calculateTime().slice(0, 7);
     const newData = diaryList.filter((item: DiaryType) => {
-      const dateMonth = item.diaryDate.slice(0, 7);
-      return dateMonth === dateStr;
+      const dateMonthStr = item.diaryDate.slice(0, 7);
+      return dateMonthStr === dateMonth;
     });
 
-    setDate(dateMonth + "월");
+    setDate(onlyMonth + "월");
     calculateEmotionGrade(newData);
     setDiaryList(diaryList);
   }, []);
