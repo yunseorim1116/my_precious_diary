@@ -26,7 +26,7 @@ const DiaryListContainer = () => {
   };
 
   useEffect(() => {
-    const diaryList = getLocalStorageData(DIARY_KEY);
+    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
     const dateMonth = calculateTime().slice(0, 7); //년 + 월
     const onlyMonth = dateMonth.slice(5, 8); // only 월
 
@@ -42,20 +42,20 @@ const DiaryListContainer = () => {
   return (
     <ListContainer>
       <ListWrap>
+        <EmotionAvgWrap>
+          <EmotionAvg>
+            이번달 감정 점수는<Avg> {emotionAverage}</Avg> 점 이에용
+          </EmotionAvg>
+        </EmotionAvgWrap>
         <Month>{date}</Month>
         <div>
-          {diaryListData.reverse().map((diary: DiaryType) => {
+          {diaryListData.map((diary: DiaryType) => {
             return (
               <>
                 <DiaryList diary={diary}></DiaryList>
               </>
             );
           })}
-          <EmotionAvgWrap>
-            <EmotionAvg>
-              이번달 감정 점수<Avg> {emotionAverage}</Avg> 점이요
-            </EmotionAvg>
-          </EmotionAvgWrap>
         </div>
       </ListWrap>
     </ListContainer>
@@ -64,7 +64,7 @@ const DiaryListContainer = () => {
 
 const ListContainer = styled.div`
   background-color: #bfcbdc;
-  width: 100vw;
+  width: 100%;
   height: auto;
   text-align: center;
 `;
@@ -74,14 +74,13 @@ const ListWrap = styled.div`
   cursor: pointer;
   background-color: #f9f9f9;
   width: 700px;
-  height: 100vh;
   text-align: center;
   margin: auto;
 `;
 const Month = styled.div`
   font-size: 32px;
   text-align: center;
-  padding: 30px;
+  padding-top: 100px;
 `;
 
 const Avg = styled.span`
@@ -90,11 +89,15 @@ const Avg = styled.span`
 `;
 
 const EmotionAvgWrap = styled.div`
+  padding: 20px 0px;
+  width: 700px;
+  position: fixed;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #dcdcdc;
   display: flex;
   justify-content: center;
 `;
 const EmotionAvg = styled.div`
-  position: fixed;
   bottom: 15px;
   font-size: 18px;
 `;
