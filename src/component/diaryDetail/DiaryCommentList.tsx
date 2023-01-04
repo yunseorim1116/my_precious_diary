@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { DiaryCommentType } from "../../type/DiaryType";
 import {
   getLocalStorageData,
@@ -32,7 +31,7 @@ const DiaryCommentList = ({
   return (
     <CommentContainer>
       <CommentContent>{comment.commentContent}</CommentContent>
-      <Button onClick={onDelete}>삭ㅈㅔ</Button>
+      <Button onClick={onDelete}>삭제</Button>
     </CommentContainer>
   );
 };

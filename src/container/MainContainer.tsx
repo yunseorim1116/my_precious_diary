@@ -2,6 +2,8 @@ import Button from "../component/share/Button";
 import { useNavigate } from "react-router-dom";
 import { AddDiary, DiaryList } from "../router/routerPath";
 import styled from "styled-components";
+import ReactAudioPlayer from "react-audio-player";
+
 const MainContainer = () => {
   const navigate = useNavigate();
 
@@ -16,7 +18,13 @@ const MainContainer = () => {
     <MainPageContainer>
       <MainWrap>
         <TitleImg src="/assets/img/소나기.png"></TitleImg>
-
+        <Audio>
+          <ReactAudioPlayer
+            src="/music/RAIN-SOUNDS-1H_2.ogg"
+            autoPlay
+            controls
+          />
+        </Audio>
         <div>
           <Button text="일기쓰러가기" clickFunction={addDiary}></Button>
         </div>
@@ -25,6 +33,10 @@ const MainContainer = () => {
     </MainPageContainer>
   );
 };
+
+const Audio = styled.div`
+  opacity: 0;
+`;
 
 const TitleImg = styled.img`
   width: 400px;
