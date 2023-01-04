@@ -13,6 +13,7 @@ import { createId } from "../utils/createId";
 import { DIARY_KEY } from "../common/string";
 import DiaryCommentList from "../component/diaryDetail/DiaryCommentList";
 import { Home } from "../router/routerPath";
+import { calculateTime } from "../utils/calculateTime";
 
 const DiaryDetailContainer = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const DiaryDetailContainer = () => {
     const findIndex = findItemIndex(localDiaryData, id);
 
     if (findIndex === -1) {
-      goToMainPage();
+      goToMainPage(); //삭제됐을때
       return;
     }
 
@@ -54,6 +55,7 @@ const DiaryDetailContainer = () => {
     const commentData: DiaryCommentType = {
       commentId: createId(),
       commentContent: commentRef.current.value,
+      commentDate: calculateTime(),
     };
 
     getCommentData(commentData, id);

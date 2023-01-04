@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { calculateTime } from "../utils/calculateTime";
 import DiaryList from "../component/diaryList/DiaryList";
 import { DiaryType } from "../type/DiaryType";
@@ -10,7 +10,7 @@ const DiaryListContainer = () => {
   const [date, setDate] = useState<string>("");
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
 
-  const calculateEmotionGrade = (newData: any) => {
+  const calculateEmotionGrade = (newData: DiaryType[]) => {
     if (!newData.length) return 0;
 
     const gradeList = newData.map((item: DiaryType) => {

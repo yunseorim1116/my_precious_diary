@@ -27,13 +27,17 @@ const AddDiaryContainer = () => {
     const { diaryDataObj } = state;
     setSelectedEmotion(diaryDataObj.emotionStatus);
     setIsEdit(true);
-    diaryContent.current.value = diaryDataObj.diaryContent;
-    diaryTitle.current.value = diaryDataObj.diaryTitle;
+
+    const diaryContents = diaryContent.current!;
+    diaryContents.value = diaryDataObj.diaryContent;
+
+    const diaryTitle = diaryContent.current!;
+    diaryTitle.value = diaryDataObj.diaryTitle;
   }, []);
   useEffect(() => {}, []);
 
-  const diaryContent = useRef<any>("");
-  const diaryTitle = useRef<any>("");
+  const diaryContent = useRef<HTMLTextAreaElement>(null);
+  const diaryTitle = useRef<HTMLInputElement>(null);
 
   const selectEmotion = (emotion: EmotionType) => {
     setSelectedEmotion(emotion);
@@ -43,9 +47,12 @@ const AddDiaryContainer = () => {
     const dateTime = calculateTime();
     const diaryId = createId();
 
+    const diaryContents = diaryContent.current!;
+    const diaryTitles = diaryTitle.current!;
+
     const diaryData: DiaryType = {
-      diaryTitle: diaryTitle.current.value,
-      diaryContent: diaryContent.current.value,
+      diaryTitle: diaryTitles.value,
+      diaryContent: diaryContents.value,
       emotionStatus: selectedEmotion,
       diaryDate: dateTime,
       diaryId,
@@ -56,10 +63,11 @@ const AddDiaryContainer = () => {
       // 수정
       const { diaryDataObj } = state;
       if (!diaryData) return;
+
       diaryData.diaryId = diaryDataObj.id;
       diaryData.diaryDate = diaryDataObj.diaryDate;
-      const localDiaryData = getLocalStorageData(DIARY_KEY);
 
+      const localDiaryData = getLocalStorageData(DIARY_KEY);
       const findIndex = localDiaryData.findIndex(
         (item) => item.diaryId === diaryDataObj.id
       );

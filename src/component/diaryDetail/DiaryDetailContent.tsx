@@ -30,7 +30,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
     const findIndex = findItemIndex(localDiaryData, diaryId);
     localDiaryData.splice(findIndex, 1);
     const parseSting = JSON.stringify(localDiaryData) as string;
-    localStorage.setItem(DIARY_KEY, parseSting);
+    localStorage.setItem(DIARY_KEY, parseSting); //로컬스토리지 삭제
     goToMainPage();
   };
 
