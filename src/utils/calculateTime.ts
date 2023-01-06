@@ -5,7 +5,7 @@ export const calculateTime = ()=>{
     const year = date.getFullYear().toString();
     const month = ("0" + (date.getMonth() + 1)).slice(-2);
     const day = ("0" + date.getDate()).slice(-2);
-    const dateYearMonthStr = year+"-"+month
+    const dateYearMonthStr= year+ "-" +month
     const allDateStr = year + "-" + month + "-" + day;
 
     const dateInfo = {
@@ -16,8 +16,7 @@ export const calculateTime = ()=>{
         dateYearMonthStr,
         allDateStr
     }
-
-    return dateInfo
+  return dateInfo;
 }
 
  export const setMonth = (date:any, key:string) => {
@@ -50,5 +49,6 @@ export const calculateTime = ()=>{
       onlyMonthInfo: prevMonthStr,
     };
 
- return dateInfo
+    return dateInfo
 }
+
