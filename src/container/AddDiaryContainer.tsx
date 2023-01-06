@@ -22,6 +22,13 @@ const AddDiaryContainer = () => {
     emotionList[2]
   );
 
+  const diaryContent = useRef<any>("");
+  const diaryTitle = useRef<any>("");
+
+  const selectEmotion = (emotion: EmotionType) => {
+    setSelectedEmotion(emotion);
+  };
+
   useEffect(() => {
     if (!state) return;
     const { diaryDataObj } = state;
@@ -30,14 +37,6 @@ const AddDiaryContainer = () => {
     diaryContent.current.value = diaryDataObj.diaryContent;
     diaryTitle.current.value = diaryDataObj.diaryTitle;
   }, []);
-  useEffect(() => {}, []);
-
-  const diaryContent = useRef<any>("");
-  const diaryTitle = useRef<any>("");
-
-  const selectEmotion = (emotion: EmotionType) => {
-    setSelectedEmotion(emotion);
-  };
 
   const submitAddDiary = () => {
     const dateTime = calculateTime();

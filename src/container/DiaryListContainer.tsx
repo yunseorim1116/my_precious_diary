@@ -39,6 +39,7 @@ const DiaryListContainer = () => {
     calculateEmotionGrade(newData);
     setDiaryList(diaryList);
   }, []);
+
   return (
     <ListContainer>
       <ListWrap>
@@ -47,7 +48,11 @@ const DiaryListContainer = () => {
             이번달 감정 점수는<Avg> {emotionAverage}</Avg> 점 이에용
           </EmotionAvg>
         </EmotionAvgWrap>
-        <Month>{date}</Month>
+        <Month>
+          <span>저번달</span>
+          {date}
+          <span>다음달</span>
+        </Month>
 
         <DiaryListWrap>
           {diaryListData.map((diary: DiaryType) => {

@@ -6,17 +6,27 @@ import {
 } from "../../utils/storage";
 import styled from "styled-components";
 import { DIARY_KEY } from "../../common/string";
+import { useEffect } from "react";
+
+interface PropsType {
+  commentList: DiaryCommentType[];
+  comment: DiaryCommentType;
+  setCommentList: React.Dispatch<React.SetStateAction<DiaryCommentType[]>>;
+  id: string | undefined;
+}
+
 const DiaryCommentList = ({
   commentList,
   comment,
   setCommentList,
   id,
-}: any) => {
+}: PropsType) => {
   const onDelete = () => {
+    if (!id) return;
+
     const newCommentList = commentList.filter(
       (item: DiaryCommentType) => item.commentId !== comment.commentId
     );
-
     setCommentList(newCommentList); //화면에서 삭제
 
     const localDiaryData = getLocalStorageData(DIARY_KEY);
@@ -28,6 +38,7 @@ const DiaryCommentList = ({
     localDiaryData[findIndex].commentData.splice(findCommentIndex, 1); //로컬스토리지 코멘트 삭제
     setLocalStorageData(DIARY_KEY, localDiaryData);
   };
+
   return (
     <CommentContainer>
       <CommentContent>{comment.commentContent}</CommentContent>
@@ -43,6 +54,7 @@ const CommentContent = styled.div`
   display: flex;
   font-family: "GangwonEdu_OTFBoldA";
 `;
+
 const Button = styled.button`
   font-family: "FlowerSalt";
   cursor: pointer;
@@ -58,6 +70,7 @@ const Button = styled.button`
   color: #746b6b;
   margin-right: 15px;
 `;
+
 const CommentContainer = styled.div`
   background-color: #f9f9f9;
   display: flex;

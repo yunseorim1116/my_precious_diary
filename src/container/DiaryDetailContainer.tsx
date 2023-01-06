@@ -16,6 +16,8 @@ import { Home } from "../router/routerPath";
 
 const DiaryDetailContainer = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+
   const data = {
     diaryTitle: "",
     diaryContent: "",
@@ -24,14 +26,13 @@ const DiaryDetailContainer = () => {
     diaryId: "",
     commentData: [],
   };
-
-  const { id } = useParams();
   const [diaryData, setDiaryData] = useState<DiaryType>(data);
   const [commentList, setCommentList] = useState<DiaryCommentType[]>([]);
   const commentRef = useRef<any>("");
 
   useEffect(() => {
     if (!id) return;
+
     const localDiaryData = getLocalStorageData(DIARY_KEY);
     const findIndex = findItemIndex(localDiaryData, id);
 
@@ -45,9 +46,8 @@ const DiaryDetailContainer = () => {
     setCommentList(detailDiary.commentData);
   }, []);
 
-  const goToMainPage = () => {
-    navigate(Home);
-  };
+  const goToMainPage = () => navigate(Home);
+
   const addComment = () => {
     if (!id) return;
 
@@ -78,7 +78,6 @@ const DiaryDetailContainer = () => {
         />
         {commentList.map((comment) => (
           <DiaryCommentList
-            findDiary={findDiary}
             commentList={commentList}
             comment={comment}
             setCommentList={setCommentList}
