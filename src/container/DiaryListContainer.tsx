@@ -37,12 +37,25 @@ const DiaryListContainer = () => {
     setEmotionAverage(emotionAvg);
   };
 
-  useEffect(() => {
-    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
+  // useEffect(() => {
+  //   const newData = diaryListData.filter((item: DiaryType) => {
+  //     const dateMonthStr = item.diaryDate.dateYearMonthStr;
+  //     return dateMonthStr === date.allDateInfo;
+  //   });
 
-    const dateYearMonth = calculateTime().slice(0, 7); //년 + 월
-    const onlyMonth = dateYearMonth.slice(6, 8); // only 월
-    const onlyYear = dateYearMonth.slice(0, 4); // only 년도
+  //   calculateEmotionGrade(newData);
+  //   setDiaryList(newData);
+  // }, [date]);
+
+  useEffect(() => {
+    console.log("ㅎㅠ");
+    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
+    const dateInfoObj = calculateTime() as any;
+    const { year, month, dateYearMonthStr } = dateInfoObj;
+
+    const dateYearMonth = dateYearMonthStr; //년 + 월
+    const onlyMonth = month; // only 월
+    const onlyYear = year; // only 년도
 
     const dateInfo: monthType = {
       allDateInfo: dateYearMonth,
@@ -51,13 +64,13 @@ const DiaryListContainer = () => {
     };
 
     const newData = diaryList.filter((item: DiaryType) => {
-      const dateMonthStr = item.diaryDate.slice(0, 7);
+      const dateMonthStr = item.diaryDate.dateYearMonthStr;
       return dateMonthStr === dateYearMonth;
     });
 
     setDate(dateInfo);
     calculateEmotionGrade(newData);
-    setDiaryList(diaryList);
+    setDiaryList(newData);
   }, []);
 
   const setNextMonth = () => {
@@ -98,7 +111,7 @@ const DiaryListContainer = () => {
           </EmotionAvg>
         </EmotionAvgWrap>
         <Month>
-          <span onClick={setPrevMonth}>저번달</span>! {date.onlyMonthInfo}월!
+          <span onClick={setPrevMonth}>저번달</span> {date.onlyMonthInfo}월
           <span onClick={setNextMonth}>다음달</span>
         </Month>
 

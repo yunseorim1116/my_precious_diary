@@ -7,7 +7,7 @@ export interface DiaryType {
     diaryTitle: string,
     diaryContent: string,
     emotionStatus: EmotionType ,
-    diaryDate: string,
+    diaryDate: any,
     diaryId:string
     commentData: [] | DiaryCommentType[]
 }

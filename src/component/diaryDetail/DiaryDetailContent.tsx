@@ -65,7 +65,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
       <ContentBox>
         <DiaryEmotion emotion={diaryData.emotionStatus}></DiaryEmotion>
         <DiaryTitle>{diaryTitle}</DiaryTitle>
-        <DirayDate>{diaryDate}</DirayDate>
+        <DirayDate>{diaryDate.dateYearMonthStr}</DirayDate>
         <Content>{diaryContent}</Content>
       </ContentBox>
     </ContentWrap>

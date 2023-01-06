@@ -21,7 +21,7 @@ const DiaryList = ({ diary }: propsType) => {
         <div>
           <TitleWarp>
             <Title>{diary.diaryTitle}</Title>
-            <DiaryDate>{diary.diaryDate}</DiaryDate>
+            <DiaryDate>{diary.diaryDate.dateYearMonthStr}</DiaryDate>
           </TitleWarp>
           <DiaryContent>{diary.diaryContent}</DiaryContent>
         </div>
