@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { calculateTime } from "../utils/calculateTime";
 import DiaryList from "../component/diaryList/DiaryList";
 import { DiaryDateType, DiaryType } from "../type/DiaryType";
@@ -80,6 +80,7 @@ const DiaryListContainer = () => {
       <ListWrap>
         <EmotionAvgWrap>
           <EmotionAvg>
+
             <span> {date.onlyMonthInfo}월</span>의 감정 점수는
             <Avg> {emotionAverage} </Avg> 점 이에요!
           </EmotionAvg>
@@ -88,7 +89,11 @@ const DiaryListContainer = () => {
           <span onClick={setPrevMonth}>저번달</span> {date.onlyMonthInfo}월
           <span onClick={setNextMonth}>다음달</span>
         </Month>
-
+        
+            이번달 감정 점수는<Avg> {emotionAverage}</Avg> 점 이에요!
+          </EmotionAvg>
+        </EmotionAvgWrap>
+   
         <DiaryListWrap>
           {diaryListData.map((diary: DiaryType) => {
             return (

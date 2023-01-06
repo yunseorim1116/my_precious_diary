@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="https://user-images.githubusercontent.com/94429667/210610478-c4f1f5c9-a194-43f1-800e-369134d2c0c0.png">
 
-## Available Scripts
 
-In the project directory, you can run:
+<h2>소중한 나의 감정 기록장 | 소나기</h2>
+<h3>- 개발 ing</h3>
 
-### `npm start`
+</br></br></br></br></br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img width="500" src="https://user-images.githubusercontent.com/94429667/210626391-7185ec71-369e-4824-834f-070e73fb2f8b.png">
+</br></br></br></br></br>
+<img width="500" src="https://user-images.githubusercontent.com/94429667/210624097-ec211738-7379-40ce-8c8b-8b9c2b8c2b56.png">
+</br></br></br></br></br>
+<img width="500" src="https://user-images.githubusercontent.com/94429667/210624535-779dd37d-89ed-4266-a5ce-933c31982e5e.png">
+</div>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 개발 진행사항
+```
 
-### `npm run build`
+- 그날 그날 느꼈던 감정을 기록해보세요. <post>
+- 등록한 감정기록 조회가 가능합니다. <get>
+- 감정기록은 당일에만 수정이 가능합니다. <put>
+- 감정기록 삭제는 언제든지 가능합니다. <delete>
+- 나의 감정기록에 회고 댓글을 달 수 있습니다. <post>
+- 회고 댓글 삭제가 가능합니다. <delete>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+</br></br></br></br></br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 프로젝트 실행 방법
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm install
+npm run start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

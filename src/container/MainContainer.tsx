@@ -48,12 +48,20 @@ const MainWrap = styled.div`
   height: 100vh;
   text-align: center;
   margin: auto;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const MainPageContainer = styled.div`
   background-color: #bfcbdc;
   width: 100vw;
-  height: auto;
+  height: 100vh;
   text-align: center;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default MainContainer;

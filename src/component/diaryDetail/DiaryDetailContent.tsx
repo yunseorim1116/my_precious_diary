@@ -4,9 +4,9 @@ import { AddDiary, Home } from "../../router/routerPath";
 import { useNavigate } from "react-router";
 import { getLocalStorageData, findItemIndex } from "../../utils/storage";
 import { DIARY_KEY } from "../../common/string";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DiaryEmotion from "../share/DiaryEmotion";
-
+import { calculateTime } from "../../utils/calculateTime";
 interface PropsType {
   diaryData: DiaryType;
   goToMainPage: () => void;
@@ -14,10 +14,15 @@ interface PropsType {
 
 const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   const [isClickButton, setIsClickButton] = useState(false);
+  const [isToday, setIsToday] = useState(false);
   const navigate = useNavigate();
   const { emotionStatus, diaryTitle, diaryContent, diaryId, diaryDate } =
     diaryData;
 
+  useEffect(() => {
+    const todayDate = calculateTime();
+    if (todayDate === diaryDate) setIsToday(true);
+  });
   const onToggleButton = () => {
     setIsClickButton(!isClickButton);
   };
@@ -27,7 +32,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
     const findIndex = findItemIndex(localDiaryData, diaryId);
     localDiaryData.splice(findIndex, 1);
     const parseSting = JSON.stringify(localDiaryData) as string;
-    localStorage.setItem(DIARY_KEY, parseSting);
+    localStorage.setItem(DIARY_KEY, parseSting); //로컬스토리지 삭제
     goToMainPage();
   };
 
@@ -57,7 +62,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
       {isClickButton && (
         <DiaryWrap>
           <ModifyButtonBox>
-            <ModifyButton onClick={onEditDiary}>수정</ModifyButton>
+            {isToday && <ModifyButton onClick={onEditDiary}>수정</ModifyButton>}
             <ModifyButton onClick={onDeleteDiary}>삭제</ModifyButton>
           </ModifyButtonBox>
         </DiaryWrap>
