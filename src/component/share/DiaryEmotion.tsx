@@ -27,6 +27,7 @@ interface EmotionBackType {
   selectedEmotion: EmotionType | undefined;
   emotion: EmotionType;
 }
+
 const Ul = styled.ul<EmotionBackType>`
   padding: 0px;
   color: #89a0aa;
@@ -38,10 +39,12 @@ const Ul = styled.ul<EmotionBackType>`
   height: 100px;
   margin-right: 15px;
 `;
+
 const EmotionItem = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   cursor: pointer;
 `;
+
 export default DiaryEmotion;

@@ -11,6 +11,7 @@ interface PropsType {
   diaryData: DiaryType;
   goToMainPage: () => void;
 }
+
 const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   const [isClickButton, setIsClickButton] = useState(false);
   const [isToday, setIsToday] = useState(false);
@@ -25,6 +26,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   const onToggleButton = () => {
     setIsClickButton(!isClickButton);
   };
+
   const onDeleteDiary = () => {
     const localDiaryData = getLocalStorageData(DIARY_KEY);
     const findIndex = findItemIndex(localDiaryData, diaryId);
@@ -69,7 +71,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
       <ContentBox>
         <DiaryEmotion emotion={diaryData.emotionStatus}></DiaryEmotion>
         <DiaryTitle>{diaryTitle}</DiaryTitle>
-        <DirayDate>{diaryDate}</DirayDate>
+        <DirayDate>{diaryDate.dateYearMonthStr}</DirayDate>
         <Content>{diaryContent}</Content>
       </ContentBox>
     </ContentWrap>

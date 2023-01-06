@@ -1,13 +1,26 @@
 import { useEffect, useMemo, useState } from "react";
 import { calculateTime } from "../utils/calculateTime";
 import DiaryList from "../component/diaryList/DiaryList";
-import { DiaryType } from "../type/DiaryType";
+import { DiaryDateType, DiaryType } from "../type/DiaryType";
 import styled from "styled-components";
 import { getLocalStorageData } from "../utils/storage";
-import { DIARY_KEY } from "../common/string";
+import { setMonth } from "../utils/calculateTime";
+import { DIARY_KEY, PREV, NEXT } from "../common/string";
+
 const DiaryListContainer = () => {
+  interface monthType {
+    allDateInfo: string;
+    onlyMonthInfo: string;
+    onlyYearInfo: string;
+  }
+  const month = {
+    allDateInfo: "",
+    onlyMonthInfo: "",
+    onlyYearInfo: "",
+  };
+  const [allDiaryData, setAllDiaryData] = useState<DiaryType[]>([]);
   const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<monthType>(month);
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
 
   const calculateEmotionGrade = (newData: DiaryType[]) => {
@@ -26,28 +39,61 @@ const DiaryListContainer = () => {
   };
 
   useEffect(() => {
-    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
-    const dateMonth = calculateTime().slice(0, 7); //년 + 월
-    const onlyMonth = dateMonth.slice(5, 8); // only 월
-
-    const newData = diaryList.filter((item: DiaryType) => {
-      const dateMonthStr = item.diaryDate.slice(0, 7);
-      return dateMonthStr === dateMonth;
+    const filterMonthData = allDiaryData.filter((item: DiaryType) => {
+      const dateMonthStr = item.diaryDate.dateYearMonthStr;
+      return dateMonthStr === date.allDateInfo;
     });
 
-    setDate(onlyMonth + "월");
-    calculateEmotionGrade(newData);
+    calculateEmotionGrade(filterMonthData);
+    setDiaryList(filterMonthData);
+  }, [date]);
+
+  useEffect(() => {
+    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
+    const dateInfoObj = calculateTime();
+    const { year, month, dateYearMonthStr } = dateInfoObj;
+
+    const dateInfo: monthType = {
+      allDateInfo: dateYearMonthStr,
+      onlyYearInfo: year,
+      onlyMonthInfo: month,
+    };
+
+    setAllDiaryData(diaryList);
+    setDate(dateInfo);
+    calculateEmotionGrade(diaryList);
     setDiaryList(diaryList);
   }, []);
+
+  const setNextMonth = () => {
+    const dateInfo = setMonth(date, NEXT);
+    setDate(dateInfo);
+  };
+
+  const setPrevMonth = () => {
+    const dateInfo = setMonth(date, PREV);
+    setDate(dateInfo);
+  };
+
   return (
     <ListContainer>
       <ListWrap>
         <EmotionAvgWrap>
           <EmotionAvg>
+
+            <span> {date.onlyMonthInfo}월</span>의 감정 점수는
+            <Avg> {emotionAverage} </Avg> 점 이에요!
+          </EmotionAvg>
+        </EmotionAvgWrap>
+        <Month>
+          <span onClick={setPrevMonth}>저번달</span> {date.onlyMonthInfo}월
+          <span onClick={setNextMonth}>다음달</span>
+        </Month>
+        
             이번달 감정 점수는<Avg> {emotionAverage}</Avg> 점 이에요!
           </EmotionAvg>
         </EmotionAvgWrap>
-        <Month>{date}</Month>
+   
         <DiaryListWrap>
           {diaryListData.map((diary: DiaryType) => {
             return (

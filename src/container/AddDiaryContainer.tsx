@@ -8,7 +8,7 @@ import { calculateTime } from "../utils/calculateTime";
 import { emotionArr } from "../data/emotionData";
 import { setDiaryData, getLocalStorageData } from "../utils/storage";
 import { createId } from "../utils/createId";
-import { DiaryType } from "../type/DiaryType";
+import { DiaryDateType, DiaryType } from "../type/DiaryType";
 import { useLocation, useNavigate } from "react-router";
 import { DIARY_KEY } from "../common/string";
 import { DiaryList } from "../router/routerPath";
@@ -22,6 +22,13 @@ const AddDiaryContainer = () => {
     emotionList[2]
   );
 
+  const diaryContent = useRef<any>("");
+  const diaryTitle = useRef<any>("");
+
+  const selectEmotion = (emotion: EmotionType) => {
+    setSelectedEmotion(emotion);
+  };
+
   useEffect(() => {
     if (!state) return;
     const { diaryDataObj } = state;
@@ -34,7 +41,7 @@ const AddDiaryContainer = () => {
     const diaryTitle = diaryContent.current!;
     diaryTitle.value = diaryDataObj.diaryTitle;
   }, []);
-  useEffect(() => {}, []);
+
 
   const diaryContent = useRef<HTMLTextAreaElement>(null);
   const diaryTitle = useRef<HTMLInputElement>(null);
@@ -45,6 +52,7 @@ const AddDiaryContainer = () => {
 
   const submitAddDiary = () => {
     const dateTime = calculateTime();
+    console.log(dateTime);
     const diaryId = createId();
 
     const diaryContents = diaryContent.current!;
@@ -115,9 +123,11 @@ const AddDiaryContainer = () => {
 };
 
 export default AddDiaryContainer;
+
 const ButtonWrap = styled.div`
   text-align: center;
 `;
+
 const DiaryTitle = styled.input`
   font-family: "FlowerSalt";
   border: none;
@@ -132,24 +142,29 @@ const DiaryTitle = styled.input`
     outline: none;
   }
 `;
+
 const EmotionWrap = styled.div`
   text-align: center;
 `;
+
 const DiaryWrap = styled.div`
   background-color: #f9f9f9;
   width: 700px;
   height: 100vh;
   margin: auto;
 `;
+
 const DiaryContainer = styled.div`
   font-family: "GangwonEdu_OTFBoldA";
   background-color: #bfcbdc;
   width: 100vw;
   align-items: center;
 `;
+
 const DiaryContentWrap = styled.div`
   margin: 0px 30px;
 `;
+
 const DiaryContent = styled.textarea`
   font-family: "GangwonEdu_OTFBoldA";
   font-size: 18px;

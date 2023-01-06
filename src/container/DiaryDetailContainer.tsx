@@ -13,26 +13,22 @@ import { createId } from "../utils/createId";
 import { DIARY_KEY } from "../common/string";
 import DiaryCommentList from "../component/diaryDetail/DiaryCommentList";
 import { Home } from "../router/routerPath";
+
+import { diaryDataObj } from "../common/obj";
 import { calculateTime } from "../utils/calculateTime";
+
 
 const DiaryDetailContainer = () => {
   const navigate = useNavigate();
-  const data = {
-    diaryTitle: "",
-    diaryContent: "",
-    emotionStatus: { imgUrl: "", grade: 0, id: "string" },
-    diaryDate: "",
-    diaryId: "",
-    commentData: [],
-  };
-
   const { id } = useParams();
-  const [diaryData, setDiaryData] = useState<DiaryType>(data);
+
+  const [diaryData, setDiaryData] = useState<DiaryType>(diaryDataObj);
   const [commentList, setCommentList] = useState<DiaryCommentType[]>([]);
   const commentRef = useRef<any>("");
 
   useEffect(() => {
     if (!id) return;
+
     const localDiaryData = getLocalStorageData(DIARY_KEY);
     const findIndex = findItemIndex(localDiaryData, id);
 
@@ -46,10 +42,11 @@ const DiaryDetailContainer = () => {
     setCommentList(detailDiary.commentData);
   }, []);
 
-  const goToMainPage = () => {
-    navigate(Home);
-  };
-  const addComment = () => {
+  const goToMainPage = () => navigate(Home);
+
+  const addComment = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!commentRef.current.value) return;
     if (!id) return;
 
     const commentData: DiaryCommentType = {
@@ -80,7 +77,6 @@ const DiaryDetailContainer = () => {
         />
         {commentList.map((comment) => (
           <DiaryCommentList
-            findDiary={findDiary}
             commentList={commentList}
             comment={comment}
             setCommentList={setCommentList}

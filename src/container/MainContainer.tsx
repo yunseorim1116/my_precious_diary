@@ -17,7 +17,6 @@ const MainContainer = () => {
   return (
     <MainPageContainer>
       <MainWrap>
-        <TitleImg src="/assets/img/소나기.png"></TitleImg>
         <Audio>
           <ReactAudioPlayer
             src="/music/RAIN-SOUNDS-1H_2.ogg"
@@ -25,17 +24,18 @@ const MainContainer = () => {
             controls
           />
         </Audio>
+        <TitleImg src="/assets/img/소나기.png" />
         <div>
-          <Button text="일기쓰러가기" clickFunction={addDiary}></Button>
+          <Button text="일기쓰러가기" clickFunction={addDiary} />
         </div>
-        <Button text="나의 기록 보기" clickFunction={showDiaryList}></Button>
+        <Button text="나의 기록 보기" clickFunction={showDiaryList} />
       </MainWrap>
     </MainPageContainer>
   );
 };
 
 const Audio = styled.div`
-  opacity: 0;
+  padding-top: 10px;
 `;
 
 const TitleImg = styled.img`

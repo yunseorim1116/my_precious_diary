@@ -3,11 +3,14 @@ import styled from "styled-components";
 const DiaryComment = ({ commentRef, addComment }: any) => {
   return (
     <CommentWrap>
-      <CommentInput
-        placeholder="댓글을 입력하세요!"
-        ref={commentRef}
-      ></CommentInput>
-      <Button onClick={addComment}>등록</Button>
+      <CommentInput placeholder="댓글을 입력하세요!" ref={commentRef} />
+      <Button
+        onClick={(e) => {
+          addComment(e);
+        }}
+      >
+        등록
+      </Button>
     </CommentWrap>
   );
 };
