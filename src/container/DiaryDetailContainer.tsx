@@ -48,7 +48,9 @@ const DiaryDetailContainer = () => {
 
   const goToMainPage = () => navigate(Home);
 
-  const addComment = () => {
+  const addComment = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!commentRef.current.value) return;
     if (!id) return;
 
     const commentData: DiaryCommentType = {
