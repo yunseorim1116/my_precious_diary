@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
 import { calculateTime } from "../utils/calculateTime";
 import DiaryList from "../component/diaryList/DiaryList";
-import { DiaryType } from "../type/DiaryType";
+import { DiaryDateType, DiaryType } from "../type/DiaryType";
 import styled from "styled-components";
 import { getLocalStorageData } from "../utils/storage";
-import { DIARY_KEY } from "../common/string";
+import { setMonth } from "../utils/calculateTime";
+import { DIARY_KEY, PREV, NEXT } from "../common/string";
+
 const DiaryListContainer = () => {
   interface monthType {
     allDateInfo: string;
     onlyMonthInfo: string;
     onlyYearInfo: string;
   }
-
   const month = {
     allDateInfo: "",
     onlyMonthInfo: "",
     onlyYearInfo: "",
   };
-
+  const [allDiaryData, setAllDiaryData] = useState<DiaryType[]>([]);
   const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
   const [date, setDate] = useState<monthType>(month);
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
 
-  const calculateEmotionGrade = (newData: any) => {
+  const calculateEmotionGrade = (newData: DiaryType[]) => {
     if (!newData.length) return 0;
 
     const gradeList = newData.map((item: DiaryType) => {
@@ -37,67 +38,40 @@ const DiaryListContainer = () => {
     setEmotionAverage(emotionAvg);
   };
 
-  // useEffect(() => {
-  //   const newData = diaryListData.filter((item: DiaryType) => {
-  //     const dateMonthStr = item.diaryDate.dateYearMonthStr;
-  //     return dateMonthStr === date.allDateInfo;
-  //   });
-
-  //   calculateEmotionGrade(newData);
-  //   setDiaryList(newData);
-  // }, [date]);
-
   useEffect(() => {
-    console.log("ㅎㅠ");
-    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
-    const dateInfoObj = calculateTime() as any;
-    const { year, month, dateYearMonthStr } = dateInfoObj;
-
-    const dateYearMonth = dateYearMonthStr; //년 + 월
-    const onlyMonth = month; // only 월
-    const onlyYear = year; // only 년도
-
-    const dateInfo: monthType = {
-      allDateInfo: dateYearMonth,
-      onlyYearInfo: onlyYear,
-      onlyMonthInfo: onlyMonth,
-    };
-
-    const newData = diaryList.filter((item: DiaryType) => {
+    const filterMonthData = allDiaryData.filter((item: DiaryType) => {
       const dateMonthStr = item.diaryDate.dateYearMonthStr;
-      return dateMonthStr === dateYearMonth;
+      return dateMonthStr === date.allDateInfo;
     });
 
+    calculateEmotionGrade(filterMonthData);
+    setDiaryList(filterMonthData);
+  }, [date]);
+
+  useEffect(() => {
+    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
+    const dateInfoObj = calculateTime();
+    const { year, month, dateYearMonthStr } = dateInfoObj;
+
+    const dateInfo: monthType = {
+      allDateInfo: dateYearMonthStr,
+      onlyYearInfo: year,
+      onlyMonthInfo: month,
+    };
+
+    setAllDiaryData(diaryList);
     setDate(dateInfo);
-    calculateEmotionGrade(newData);
-    setDiaryList(newData);
+    calculateEmotionGrade(diaryList);
+    setDiaryList(diaryList);
   }, []);
 
   const setNextMonth = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    console.log(date);
+    const dateInfo = setMonth(date, NEXT);
+    setDate(dateInfo);
   };
 
   const setPrevMonth = () => {
-    const currentYear = Number(date.onlyYearInfo);
-    const currentMonth = Number(date.onlyMonthInfo);
-
-    const firstDayOfMonth = new Date(currentYear, currentMonth - 1, 1);
-    const lastMonth = new Date(
-      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 1)
-    );
-
-    const prevMonth = lastMonth.getMonth() + 1;
-    const year = lastMonth.getFullYear();
-    const dateYearMonth = year + "-" + prevMonth;
-
-    const dateInfo: monthType = {
-      allDateInfo: dateYearMonth,
-      onlyYearInfo: year.toString(),
-      onlyMonthInfo: prevMonth.toString(),
-    };
-
+    const dateInfo = setMonth(date, PREV);
     setDate(dateInfo);
   };
 

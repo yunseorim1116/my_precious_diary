@@ -6,7 +6,6 @@ import {
 } from "../../utils/storage";
 import styled from "styled-components";
 import { DIARY_KEY } from "../../common/string";
-import { useEffect } from "react";
 
 interface PropsType {
   commentList: DiaryCommentType[];

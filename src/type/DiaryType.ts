@@ -3,11 +3,21 @@ export interface DiaryCommentType {
     commentId: string,
     commentContent: string,
 }
+
+export interface DiaryDateType {
+    date:string|any,
+    year:string,
+    month:string,
+    day:string,
+    dateYearMonthStr:string,
+    allDateStr:string
+}
+
 export interface DiaryType {
     diaryTitle: string,
     diaryContent: string,
     emotionStatus: EmotionType ,
-    diaryDate: any,
+    diaryDate: DiaryDateType,
     diaryId:string
     commentData: [] | DiaryCommentType[]
 }

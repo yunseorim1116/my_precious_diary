@@ -8,7 +8,7 @@ import { calculateTime } from "../utils/calculateTime";
 import { emotionArr } from "../data/emotionData";
 import { setDiaryData, getLocalStorageData } from "../utils/storage";
 import { createId } from "../utils/createId";
-import { DiaryType } from "../type/DiaryType";
+import { DiaryDateType, DiaryType } from "../type/DiaryType";
 import { useLocation, useNavigate } from "react-router";
 import { DIARY_KEY } from "../common/string";
 import { DiaryList } from "../router/routerPath";
@@ -40,6 +40,7 @@ const AddDiaryContainer = () => {
 
   const submitAddDiary = () => {
     const dateTime = calculateTime();
+    console.log(dateTime);
     const diaryId = createId();
 
     const diaryData: DiaryType = {

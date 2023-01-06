@@ -11,6 +11,7 @@ interface PropsType {
   diaryData: DiaryType;
   goToMainPage: () => void;
 }
+
 const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   const [isClickButton, setIsClickButton] = useState(false);
   const navigate = useNavigate();

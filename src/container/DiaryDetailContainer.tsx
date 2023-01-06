@@ -13,20 +13,13 @@ import { createId } from "../utils/createId";
 import { DIARY_KEY } from "../common/string";
 import DiaryCommentList from "../component/diaryDetail/DiaryCommentList";
 import { Home } from "../router/routerPath";
+import { diaryDataObj } from "../common/obj";
 
 const DiaryDetailContainer = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const data = {
-    diaryTitle: "",
-    diaryContent: "",
-    emotionStatus: { imgUrl: "", grade: 0, id: "string" },
-    diaryDate: "",
-    diaryId: "",
-    commentData: [],
-  };
-  const [diaryData, setDiaryData] = useState<DiaryType>(data);
+  const [diaryData, setDiaryData] = useState<DiaryType>(diaryDataObj);
   const [commentList, setCommentList] = useState<DiaryCommentType[]>([]);
   const commentRef = useRef<any>("");
 
