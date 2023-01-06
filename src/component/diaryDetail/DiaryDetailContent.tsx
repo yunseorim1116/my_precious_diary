@@ -20,6 +20,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
   const onToggleButton = () => {
     setIsClickButton(!isClickButton);
   };
+
   const onDeleteDiary = () => {
     const localDiaryData = getLocalStorageData(DIARY_KEY);
     const findIndex = findItemIndex(localDiaryData, diaryId);

@@ -21,7 +21,7 @@ const DiaryCommentList = ({
   setCommentList,
   id,
 }: PropsType) => {
-  const onDelete = () => {
+  const onDeleteComment = () => {
     if (!id) return;
 
     const newCommentList = commentList.filter(
@@ -42,7 +42,7 @@ const DiaryCommentList = ({
   return (
     <CommentContainer>
       <CommentContent>{comment.commentContent}</CommentContent>
-      <Button onClick={onDelete}>삭제</Button>
+      <Button onClick={onDeleteComment}>삭제</Button>
     </CommentContainer>
   );
 };

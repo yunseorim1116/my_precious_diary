@@ -34,9 +34,11 @@ const DiaryDate = styled.div`
   color: #c5c5c5;
   margin-right: 15px;
 `;
+
 const DiaryContent = styled.div`
   text-align: left;
 `;
+
 const DiaryContentWrap = styled.span``;
 
 const Title = styled.div`
@@ -44,6 +46,7 @@ const Title = styled.div`
   font-size: 28px;
   margin-top: 15px;
 `;
+
 const TitleWarp = styled.div`
   margin-bottom: 10px;
   width: 500px;
