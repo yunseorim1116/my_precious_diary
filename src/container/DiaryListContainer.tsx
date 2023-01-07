@@ -22,6 +22,7 @@ const DiaryListContainer = () => {
   const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
   const [date, setDate] = useState<monthType>(monthDataInfo);
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
+  const [isTodayMonth, setIsTodayMonth] = useState(false);
   const navigate = useNavigate();
 
   const calculateEmotionGrade = (newData: DiaryType[]) => {
@@ -45,6 +46,10 @@ const DiaryListContainer = () => {
 
     calculateEmotionGrade(filterMonthData);
     setDiaryList(filterMonthData);
+
+    const todayMonth = calculateTime().month;
+    if (date.onlyMonthInfo === todayMonth) setIsTodayMonth(false);
+    else setIsTodayMonth(true);
   }, [date]);
 
   useEffect(() => {
@@ -100,6 +105,7 @@ const DiaryListContainer = () => {
           <NextArrow
             src="/assets/icon/back_arrow_icon.png"
             onClick={setNextMonth}
+            isTodayMonth={isTodayMonth}
           />
         </MonthWrap>
 
@@ -119,13 +125,12 @@ const DiaryListContainer = () => {
   );
 };
 
-const DiaryNoneContentWrap = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`;
+interface NextArrowType {
+  isTodayMonth: boolean;
+}
 
-const NextArrow = styled.img`
+const NextArrow = styled.img<NextArrowType>`
+  visibility: ${(props) => !props.isTodayMonth && "hidden"};
   width: 35px;
   transform: scaleX(-1);
   padding: 0px 10px;
