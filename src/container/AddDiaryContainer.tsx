@@ -45,11 +45,12 @@ const AddDiaryContainer = () => {
 
   const submitAddDiary = () => {
     const dateTime = calculateTime();
-    console.log(dateTime);
     const diaryId = createId();
 
     const diaryContents = diaryContent.current!;
     const diaryTitles = diaryTitle.current!;
+
+    if (diaryContents.value === "" || diaryTitles.value === "") return;
 
     const diaryData: DiaryType = {
       diaryTitle: diaryTitles.value,
@@ -77,8 +78,6 @@ const AddDiaryContainer = () => {
       const parseSting = JSON.stringify(localDiaryData) as string;
       localStorage.setItem(DIARY_KEY, parseSting);
     } else setDiaryData(diaryData);
-
-    if (diaryData.diaryContent === "" || diaryData.diaryTitle === "") return;
 
     navigate(DiaryList);
   };

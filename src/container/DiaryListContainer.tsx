@@ -27,6 +27,7 @@ const DiaryListContainer = () => {
 
   const calculateEmotionGrade = (newData: DiaryType[]) => {
     if (!newData.length) return 0;
+
     const gradeList = newData.map((item: DiaryType) => {
       return item.emotionStatus.grade;
     }); //타입을 위해서 gradeList 분리
@@ -35,7 +36,7 @@ const DiaryListContainer = () => {
     }, 0);
 
     const emotionAvg: number = Math.round(resultAvg / gradeList.length);
-    setEmotionAverage(emotionAvg);
+    return emotionAvg;
   };
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const DiaryListContainer = () => {
       return dateMonthStr === date.allDateInfo;
     });
 
-    calculateEmotionGrade(filterMonthData);
+    setEmotionAverage(calculateEmotionGrade(filterMonthData));
     setDiaryList(filterMonthData);
 
     const todayMonth = calculateTime().month;
@@ -65,7 +66,7 @@ const DiaryListContainer = () => {
 
     setAllDiaryData(diaryList);
     setDate(dateInfo);
-    calculateEmotionGrade(diaryList);
+    setEmotionAverage(calculateEmotionGrade(diaryList));
     setDiaryList(diaryList);
   }, []);
 
@@ -154,9 +155,11 @@ const DiaryListWrap = styled.div`
 `;
 
 const ListContainer = styled.div`
+
   height: 100vh;
   overflow: auto
   text-align: center;
+
 `;
 
 const ListWrap = styled.div`
@@ -166,7 +169,6 @@ const ListWrap = styled.div`
   width: 700px;
   height: 100vh;
   margin: auto;
-  overflow: auto
   text-align: center;
   overflow: scroll;
   ::-webkit-scrollbar {
