@@ -24,6 +24,7 @@ const AddDiaryContainer = () => {
 
   useEffect(() => {
     if (!state) return;
+
     const { diaryDataObj } = state;
     setSelectedEmotion(diaryDataObj.emotionStatus);
     setIsEdit(true);

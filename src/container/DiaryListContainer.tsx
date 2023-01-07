@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { calculateTime } from "../utils/calculateTime";
 import DiaryList from "../component/diaryList/DiaryList";
-import { DiaryDateType, DiaryType } from "../type/DiaryType";
+import { DiaryType } from "../type/DiaryType";
 import styled from "styled-components";
 import { getLocalStorageData } from "../utils/storage";
 import { setMonth } from "../utils/calculateTime";
 import { DIARY_KEY, PREV, NEXT } from "../common/string";
+import { monthDataInfo } from "../common/obj";
 import { useNavigate } from "react-router";
 import { Home } from "../router/routerPath";
+import NoneData from "../component/share/NoneData";
 
 const DiaryListContainer = () => {
   interface monthType {
@@ -15,14 +17,10 @@ const DiaryListContainer = () => {
     onlyMonthInfo: string;
     onlyYearInfo: string;
   }
-  const month = {
-    allDateInfo: "",
-    onlyMonthInfo: "",
-    onlyYearInfo: "",
-  };
+
   const [allDiaryData, setAllDiaryData] = useState<DiaryType[]>([]);
   const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
-  const [date, setDate] = useState<monthType>(month);
+  const [date, setDate] = useState<monthType>(monthDataInfo);
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
   const navigate = useNavigate();
 
@@ -92,6 +90,7 @@ const DiaryListContainer = () => {
           </EmotionAvg>
           <DiaryYear>{date.onlyYearInfo}</DiaryYear>
         </EmotionAvgWrap>
+
         <MonthWrap>
           <PrevArrow
             src="/assets/icon/back_arrow_icon.png"
@@ -113,10 +112,18 @@ const DiaryListContainer = () => {
             );
           })}
         </DiaryListWrap>
+
+        {!diaryListData.length && <NoneData />}
       </ListWrap>
     </ListContainer>
   );
 };
+
+const DiaryNoneContentWrap = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
 
 const NextArrow = styled.img`
   width: 35px;
@@ -166,6 +173,7 @@ const ListWrap = styled.div`
     display: none;
   }
 `;
+
 const MonthWrap = styled.div`
   font-size: 32px;
   padding-top: 110px;
