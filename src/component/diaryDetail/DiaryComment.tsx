@@ -2,15 +2,9 @@ import styled from "styled-components";
 
 const DiaryComment = ({ commentRef, addComment }: any) => {
   return (
-    <CommentWrap>
+    <CommentWrap onSubmit={addComment}>
       <CommentInput placeholder="댓글을 입력하세요!" ref={commentRef} />
-      <Button
-        onClick={(e) => {
-          addComment(e);
-        }}
-      >
-        등록
-      </Button>
+      <Button>등록</Button>
     </CommentWrap>
   );
 };
@@ -21,6 +15,7 @@ const CommentWrap = styled.form`
   display: flex;
   justify-content: space-between;
 `;
+
 const CommentInput = styled.input`
   font-size: 14px;
   font-family: "GangwonEdu_OTFBoldA";

@@ -6,13 +6,8 @@ import ReactAudioPlayer from "react-audio-player";
 
 const MainContainer = () => {
   const navigate = useNavigate();
-
-  const addDiary = () => {
-    navigate(AddDiary);
-  };
-  const showDiaryList = () => {
-    navigate(DiaryList);
-  };
+  const addDiary = () => navigate(AddDiary);
+  const showDiaryList = () => navigate(DiaryList);
 
   return (
     <MainPageContainer>

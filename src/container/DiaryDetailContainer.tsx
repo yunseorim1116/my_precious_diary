@@ -57,6 +57,7 @@ const DiaryDetailContainer = () => {
     getCommentData(commentData, id);
     setCommentList([...commentList, commentData]);
     commentRef.current.value = "";
+
     setTimeout(() => {
       window.scrollTo(0, 10000);
     }, 100);

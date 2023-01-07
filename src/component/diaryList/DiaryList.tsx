@@ -8,24 +8,25 @@ interface propsType {
   diary: DiaryType;
 }
 const DiaryList = ({ diary }: propsType) => {
+  const { emotionStatus, diaryTitle, diaryDate, diaryContent, diaryId } = diary;
   const navigate = useNavigate();
 
   const goToDetailPage = () => {
-    navigate(`${DiaryDetail}${diary.diaryId}`);
+    navigate(`${DiaryDetail}${diaryId}`);
   };
 
   return (
     <DiaryListContainer onClick={goToDetailPage}>
-      <DiaryEmotion emotion={diary.emotionStatus}></DiaryEmotion>
-      <DiaryContentWrap>
+      <DiaryEmotion emotion={emotionStatus}></DiaryEmotion>
+      <span>
         <div>
           <TitleWarp>
-            <Title>{diary.diaryTitle}</Title>
-            <DiaryDate>{diary.diaryDate.allDateStr}</DiaryDate>
+            <Title>{diaryTitle}</Title>
+            <DiaryDate>{diaryDate.allDateStr}</DiaryDate>
           </TitleWarp>
-          <DiaryContent>{diary.diaryContent}</DiaryContent>
+          <DiaryContent>{diaryContent}</DiaryContent>
         </div>
-      </DiaryContentWrap>
+      </span>
     </DiaryListContainer>
   );
 };
@@ -38,8 +39,6 @@ const DiaryDate = styled.div`
 const DiaryContent = styled.div`
   text-align: left;
 `;
-
-const DiaryContentWrap = styled.span``;
 
 const Title = styled.div`
   font-family: "FlowerSalt";
@@ -61,4 +60,5 @@ const DiaryListContainer = styled.div`
   background-color: #ffffff;
   display: flex;
 `;
+
 export default DiaryList;

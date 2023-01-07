@@ -53,11 +53,6 @@ const CommentDate = styled.span`
   margin-right: 18px;
   color: #c6c6c6;
 `;
-const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const CommentContent = styled.div`
   font-size: 18px;

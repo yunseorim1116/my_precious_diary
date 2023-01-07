@@ -8,19 +8,24 @@ import { calculateTime } from "../utils/calculateTime";
 import { emotionArr } from "../data/emotionData";
 import { setDiaryData, getLocalStorageData } from "../utils/storage";
 import { createId } from "../utils/createId";
-import { DiaryDateType, DiaryType } from "../type/DiaryType";
+import { DiaryType } from "../type/DiaryType";
 import { useLocation, useNavigate } from "react-router";
 import { DIARY_KEY } from "../common/string";
 import { DiaryList } from "../router/routerPath";
+import ModalPortal from "../PortalModal";
+import { Modal } from "../component/share/Modal";
 
 const AddDiaryContainer = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState(false);
   const [emotionList, setEmotionList] = useState<EmotionType[]>(emotionArr);
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType>(
     emotionList[2]
   );
+
+  const text = "내용을 입력해주세요!";
 
   useEffect(() => {
     if (!state) return;
@@ -43,6 +48,11 @@ const AddDiaryContainer = () => {
     setSelectedEmotion(emotion);
   };
 
+  const showAlert = () => {
+    setModalOpen(true);
+    setTimeout(() => setModalOpen(false), 800);
+  };
+
   const submitAddDiary = () => {
     const dateTime = calculateTime();
     const diaryId = createId();
@@ -50,7 +60,10 @@ const AddDiaryContainer = () => {
     const diaryContents = diaryContent.current!;
     const diaryTitles = diaryTitle.current!;
 
-    if (diaryContents.value === "" || diaryTitles.value === "") return;
+    if (diaryContents.value === "" || diaryTitles.value === "") {
+      showAlert();
+      return;
+    }
 
     const diaryData: DiaryType = {
       diaryTitle: diaryTitles.value,
@@ -87,6 +100,7 @@ const AddDiaryContainer = () => {
       <DiaryWrap>
         <EmotionWrap>
           <EmotionTitle>오늘의 나의 기분은 어떤가요?</EmotionTitle>
+          <ModalPortal>{modalOpen && <Modal text={text} />}</ModalPortal>
           <ul>
             {emotionList.map((emotion: EmotionType) => {
               return (

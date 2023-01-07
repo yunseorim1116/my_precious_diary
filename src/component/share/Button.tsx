@@ -6,6 +6,7 @@ interface propsType {
 const Button = ({ text, clickFunction }: propsType) => {
   return <ShareButton onClick={clickFunction}>{text}</ShareButton>;
 };
+
 const ShareButton = styled.button`
   font-family: "FlowerSalt";
   cursor: pointer;

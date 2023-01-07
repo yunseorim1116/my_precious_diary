@@ -54,7 +54,7 @@ const DiaryListContainer = () => {
   }, [date]);
 
   useEffect(() => {
-    const diaryList = getLocalStorageData(DIARY_KEY).reverse();
+    const localStorageData = getLocalStorageData(DIARY_KEY);
     const dateInfoObj = calculateTime();
     const { year, month, dateYearMonthStr } = dateInfoObj;
 
@@ -64,6 +64,13 @@ const DiaryListContainer = () => {
       onlyMonthInfo: month,
     };
 
+    if (localStorageData === null) {
+      setAllDiaryData([]);
+      setDate(dateInfo);
+      return;
+    }
+
+    const diaryList = localStorageData.reverse();
     setAllDiaryData(diaryList);
     setDate(dateInfo);
     setEmotionAverage(calculateEmotionGrade(diaryList));
