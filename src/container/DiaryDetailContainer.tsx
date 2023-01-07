@@ -12,11 +12,9 @@ import DiaryComment from "../component/diaryDetail/DiaryComment";
 import { createId } from "../utils/createId";
 import { DIARY_KEY } from "../common/string";
 import DiaryCommentList from "../component/diaryDetail/DiaryCommentList";
-import { Home } from "../router/routerPath";
-
+import { Home, DiaryList } from "../router/routerPath";
 import { diaryDataObj } from "../common/obj";
 import { calculateTime } from "../utils/calculateTime";
-
 
 const DiaryDetailContainer = () => {
   const navigate = useNavigate();
@@ -43,6 +41,7 @@ const DiaryDetailContainer = () => {
   }, []);
 
   const goToMainPage = () => navigate(Home);
+  const goToListPage = () => navigate(DiaryList);
 
   const addComment = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,7 +51,7 @@ const DiaryDetailContainer = () => {
     const commentData: DiaryCommentType = {
       commentId: createId(),
       commentContent: commentRef.current.value,
-      commentDate: calculateTime(),
+      commentDate: calculateTime().allDateStr,
     };
 
     getCommentData(commentData, id);
@@ -69,12 +68,8 @@ const DiaryDetailContainer = () => {
   return (
     <DetailContainer>
       <DetailWrap>
-        <DiaryDetailContent diaryData={diaryData} goToMainPage={goToMainPage} />
-        <DiaryComment
-          commentRef={commentRef}
-          addComment={addComment}
-          goToMainPage={goToMainPage}
-        />
+        <DiaryDetailContent diaryData={diaryData} goToListPage={goToListPage} />
+        <DiaryComment commentRef={commentRef} addComment={addComment} />
         {commentList.map((comment) => (
           <DiaryCommentList
             commentList={commentList}

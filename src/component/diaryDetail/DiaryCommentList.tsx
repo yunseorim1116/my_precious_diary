@@ -41,12 +41,10 @@ const DiaryCommentList = ({
   return (
     <CommentContainer>
       <CommentContent>{comment.commentContent}</CommentContent>
-
-
-   
+      <div>
         <CommentDate>{comment.commentDate}</CommentDate>
         <Button onClick={onDeleteComment}>삭제</Button>
-   
+      </div>
     </CommentContainer>
   );
 };

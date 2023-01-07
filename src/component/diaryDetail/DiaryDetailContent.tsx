@@ -9,10 +9,10 @@ import DiaryEmotion from "../share/DiaryEmotion";
 import { calculateTime } from "../../utils/calculateTime";
 interface PropsType {
   diaryData: DiaryType;
-  goToMainPage: () => void;
+  goToListPage: () => void;
 }
 
-const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
+const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
   const [isClickButton, setIsClickButton] = useState(false);
   const [isToday, setIsToday] = useState(false);
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
     const todayDate = calculateTime();
     if (todayDate === diaryDate) setIsToday(true);
   });
+
   const onToggleButton = () => {
     setIsClickButton(!isClickButton);
   };
@@ -33,7 +34,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
     localDiaryData.splice(findIndex, 1);
     const parseSting = JSON.stringify(localDiaryData) as string;
     localStorage.setItem(DIARY_KEY, parseSting); //로컬스토리지 삭제
-    goToMainPage();
+    goToListPage();
   };
 
   const onEditDiary = () => {
@@ -55,7 +56,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
       <Header>
         <IconImg
           src="/assets/icon/back_arrow_icon.png"
-          onClick={goToMainPage}
+          onClick={goToListPage}
         />
         <IconImg src="/assets/icon/kebab.png" onClick={onToggleButton} />
       </Header>
@@ -71,7 +72,7 @@ const DiaryDetailContent = ({ diaryData, goToMainPage }: PropsType) => {
       <ContentBox>
         <DiaryEmotion emotion={diaryData.emotionStatus}></DiaryEmotion>
         <DiaryTitle>{diaryTitle}</DiaryTitle>
-        <DirayDate>{diaryDate.dateYearMonthStr}</DirayDate>
+        <DiaryDate>{diaryDate.allDateStr}</DiaryDate>
         <Content>{diaryContent}</Content>
       </ContentBox>
     </ContentWrap>
@@ -91,7 +92,7 @@ const Content = styled.div`
   font-size: 18px;
 `;
 
-const DirayDate = styled.div`
+const DiaryDate = styled.div`
   margin-bottom: 30px;
   text-align: right;
   padding-right: 10px;
@@ -133,7 +134,7 @@ const Header = styled.div`
   max-width: 700px;
   display: flex;
   justify-content: space-between;
-  padding: 15px 20px;
+  padding: 20px 20px;
 `;
 
 const IconImg = styled.img`

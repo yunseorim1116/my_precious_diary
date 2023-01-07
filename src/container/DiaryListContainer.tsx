@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { getLocalStorageData } from "../utils/storage";
 import { setMonth } from "../utils/calculateTime";
 import { DIARY_KEY, PREV, NEXT } from "../common/string";
+import { useNavigate } from "react-router";
+import { Home } from "../router/routerPath";
 
 const DiaryListContainer = () => {
   interface monthType {
@@ -22,14 +24,13 @@ const DiaryListContainer = () => {
   const [diaryListData, setDiaryList] = useState<DiaryType[]>([]);
   const [date, setDate] = useState<monthType>(month);
   const [emotionAverage, setEmotionAverage] = useState<number>(0);
+  const navigate = useNavigate();
 
   const calculateEmotionGrade = (newData: DiaryType[]) => {
     if (!newData.length) return 0;
-
     const gradeList = newData.map((item: DiaryType) => {
       return item.emotionStatus.grade;
     }); //타입을 위해서 gradeList 분리
-
     const resultAvg = gradeList.reduce((acc: number, cur: number) => {
       return cur + acc;
     }, 0);
@@ -65,6 +66,8 @@ const DiaryListContainer = () => {
     setDiaryList(diaryList);
   }, []);
 
+  const goToMainPage = () => navigate(Home);
+
   const setNextMonth = () => {
     const dateInfo = setMonth(date, NEXT);
     setDate(dateInfo);
@@ -79,21 +82,28 @@ const DiaryListContainer = () => {
     <ListContainer>
       <ListWrap>
         <EmotionAvgWrap>
+          <PrevArrow
+            src="/assets/icon/back_arrow_icon.png"
+            onClick={goToMainPage}
+          />
           <EmotionAvg>
-
             <span> {date.onlyMonthInfo}월</span>의 감정 점수는
             <Avg> {emotionAverage} </Avg> 점 이에요!
           </EmotionAvg>
+          <DiaryYear>{date.onlyYearInfo}</DiaryYear>
         </EmotionAvgWrap>
-        <Month>
-          <span onClick={setPrevMonth}>저번달</span> {date.onlyMonthInfo}월
-          <span onClick={setNextMonth}>다음달</span>
-        </Month>
-        
-            이번달 감정 점수는<Avg> {emotionAverage}</Avg> 점 이에요!
-          </EmotionAvg>
-        </EmotionAvgWrap>
-   
+        <MonthWrap>
+          <PrevArrow
+            src="/assets/icon/back_arrow_icon.png"
+            onClick={setPrevMonth}
+          />
+          <div> {date.onlyMonthInfo}월</div>
+          <NextArrow
+            src="/assets/icon/back_arrow_icon.png"
+            onClick={setNextMonth}
+          />
+        </MonthWrap>
+
         <DiaryListWrap>
           {diaryListData.map((diary: DiaryType) => {
             return (
@@ -107,6 +117,25 @@ const DiaryListContainer = () => {
     </ListContainer>
   );
 };
+
+const NextArrow = styled.img`
+  width: 35px;
+  transform: scaleX(-1);
+  padding: 0px 10px;
+`;
+
+const DiaryYear = styled.div`
+  margin-right: 20px;
+  align-items: center;
+  color: #7e7e7e;
+  font-size: 32px;
+`;
+
+const PrevArrow = styled.img`
+  width: 35px;
+  margin-left: 10px;
+  padding: 0px 10px;
+`;
 
 const DiaryListWrap = styled.div`
   padding: 10px 40px;
@@ -137,11 +166,13 @@ const ListWrap = styled.div`
     display: none;
   }
 `;
-const Month = styled.div`
+const MonthWrap = styled.div`
   font-size: 32px;
-  text-align: center;
-  padding-top: 100px;
+  padding-top: 110px;
   padding-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Avg = styled.span`
@@ -156,8 +187,10 @@ const EmotionAvgWrap = styled.div`
   background-color: #f9f9f9;
   border-bottom: 1px solid #dcdcdc;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 `;
+
 const EmotionAvg = styled.div`
   bottom: 15px;
   font-size: 18px;

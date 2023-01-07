@@ -22,13 +22,6 @@ const AddDiaryContainer = () => {
     emotionList[2]
   );
 
-  const diaryContent = useRef<any>("");
-  const diaryTitle = useRef<any>("");
-
-  const selectEmotion = (emotion: EmotionType) => {
-    setSelectedEmotion(emotion);
-  };
-
   useEffect(() => {
     if (!state) return;
     const { diaryDataObj } = state;
@@ -41,7 +34,6 @@ const AddDiaryContainer = () => {
     const diaryTitle = diaryContent.current!;
     diaryTitle.value = diaryDataObj.diaryTitle;
   }, []);
-
 
   const diaryContent = useRef<HTMLTextAreaElement>(null);
   const diaryTitle = useRef<HTMLInputElement>(null);
