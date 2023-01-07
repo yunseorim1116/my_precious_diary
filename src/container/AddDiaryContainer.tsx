@@ -149,7 +149,6 @@ const DiaryWrap = styled.div`
 
 const DiaryContainer = styled.div`
   font-family: "GangwonEdu_OTFBoldA";
-  background-color: #bfcbdc;
   width: 100vw;
   align-items: center;
 `;

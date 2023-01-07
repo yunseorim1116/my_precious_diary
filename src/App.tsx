@@ -9,6 +9,10 @@ import DiaryDetailPage from "./views/DiaryDetailPage";
 import "./font.css";
 function App() {
   const GlobalStyle = createGlobalStyle`
+  body {background-color: #bfcbdc;}
+  html {
+    ::-webkit-scrollbar { display :none;}
+  }
   ${reset}
 `;
   return (

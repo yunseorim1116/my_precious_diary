@@ -59,15 +59,17 @@ const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
           onClick={goToListPage}
         />
         <IconImg src="/assets/icon/kebab.png" onClick={onToggleButton} />
+        {isClickButton && (
+          <DiaryWrap>
+            <ModifyButtonBox>
+              {isToday && (
+                <ModifyButton onClick={onEditDiary}>수정</ModifyButton>
+              )}
+              <ModifyButton onClick={onDeleteDiary}>삭제</ModifyButton>
+            </ModifyButtonBox>
+          </DiaryWrap>
+        )}
       </Header>
-      {isClickButton && (
-        <DiaryWrap>
-          <ModifyButtonBox>
-            {isToday && <ModifyButton onClick={onEditDiary}>수정</ModifyButton>}
-            <ModifyButton onClick={onDeleteDiary}>삭제</ModifyButton>
-          </ModifyButtonBox>
-        </DiaryWrap>
-      )}
 
       <ContentBox>
         <DiaryEmotion emotion={diaryData.emotionStatus}></DiaryEmotion>
@@ -106,8 +108,8 @@ const ContentWrap = styled.div`
 
 const DiaryWrap = styled.div`
   position: absolute;
-  top: 45px;
-  right: 420px;
+  top: 52px;
+  right: 4px;
 `;
 
 const ModifyButton = styled.div`
@@ -131,6 +133,7 @@ const ModifyButtonBox = styled.div`
 `;
 
 const Header = styled.div`
+  position: relative;
   max-width: 700px;
   display: flex;
   justify-content: space-between;

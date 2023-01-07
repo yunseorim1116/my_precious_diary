@@ -57,6 +57,9 @@ const DiaryDetailContainer = () => {
     getCommentData(commentData, id);
     setCommentList([...commentList, commentData]);
     commentRef.current.value = "";
+    setTimeout(() => {
+      window.scrollTo(0, 10000);
+    }, 100);
   };
 
   const findDiary = () => {
@@ -93,11 +96,6 @@ const DetailWrap = styled.div`
 
 const DetailContainer = styled.div`
   height: 100vh;
-  overflow: scroll;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  background-color: #bfcbdc;
   text-align: center;
 `;
 

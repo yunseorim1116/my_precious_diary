@@ -154,14 +154,9 @@ const DiaryListWrap = styled.div`
 `;
 
 const ListContainer = styled.div`
-  background-color: #bfcbdc;
   height: 100vh;
   overflow: auto
   text-align: center;
-  overflow: scroll;
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const ListWrap = styled.div`

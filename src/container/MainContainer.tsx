@@ -42,6 +42,7 @@ const TitleImg = styled.img`
   width: 400px;
   margin: 40px 0px;
 `;
+
 const MainWrap = styled.div`
   background-color: #f9f9f9;
   width: 700px;
@@ -54,14 +55,9 @@ const MainWrap = styled.div`
   }
 `;
 const MainPageContainer = styled.div`
-  background-color: #bfcbdc;
   width: 100vw;
   height: 100vh;
   text-align: center;
-  overflow: scroll;
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 export default MainContainer;
