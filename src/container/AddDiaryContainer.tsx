@@ -37,8 +37,8 @@ const AddDiaryContainer = () => {
     const diaryContents = diaryContent.current!;
     diaryContents.value = diaryDataObj.diaryContent;
 
-    const diaryTitle = diaryContent.current!;
-    diaryTitle.value = diaryDataObj.diaryTitle;
+    const diaryTitles = diaryTitle.current!;
+    diaryTitles.value = diaryDataObj.diaryTitle;
   }, []);
 
   const diaryContent = useRef<HTMLTextAreaElement>(null);

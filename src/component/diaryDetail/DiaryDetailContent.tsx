@@ -13,7 +13,6 @@ interface PropsType {
 }
 
 const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
-  console.log("test");
   const [isClickButton, setIsClickButton] = useState(false);
   const [isToday, setIsToday] = useState(false);
   const navigate = useNavigate();
@@ -25,9 +24,7 @@ const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
     if (todayDate.allDateStr === diaryDate.allDateStr) setIsToday(true);
   }, [diaryDate]);
 
-  const onToggleButton = () => {
-    setIsClickButton(!isClickButton);
-  };
+  const onToggleButton = () => setIsClickButton(!isClickButton);
 
   const onDeleteDiary = () => {
     const localDiaryData = getLocalStorageData(DIARY_KEY);
