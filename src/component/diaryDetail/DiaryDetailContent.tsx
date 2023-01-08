@@ -36,13 +36,19 @@ const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
   };
 
   const onEditDiary = () => {
+    const localDiaryData = getLocalStorageData(DIARY_KEY);
+    const findIndex = findItemIndex(localDiaryData, diaryId);
+    const commentData = localDiaryData[findIndex].commentData;
+    console.log(commentData);
     const diaryDataObj = {
       id: diaryId,
       emotionStatus: emotionStatus,
       diaryTitle: diaryTitle,
       diaryContent: diaryContent,
       diaryDate: diaryDate,
+      commentData,
     };
+
     navigate(AddDiary, {
       state: {
         diaryDataObj,

@@ -121,7 +121,7 @@ const DiaryListContainer = () => {
           {diaryListData.map((diary: DiaryType) => {
             return (
               <>
-                <DiaryList diary={diary}></DiaryList>
+                <DiaryList diary={diary}/>
               </>
             );
           })}
