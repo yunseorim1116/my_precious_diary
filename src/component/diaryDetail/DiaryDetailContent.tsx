@@ -41,6 +41,7 @@ const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
       emotionStatus: emotionStatus,
       diaryTitle: diaryTitle,
       diaryContent: diaryContent,
+      diaryDate: diaryDate,
     };
     navigate(AddDiary, {
       state: {

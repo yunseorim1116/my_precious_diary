@@ -81,7 +81,7 @@ const AddDiaryContainer = () => {
 
       diaryData.diaryId = diaryDataObj.id;
       diaryData.diaryDate = diaryDataObj.diaryDate;
-
+      console.log(diaryData)
       const localDiaryData = getLocalStorageData(DIARY_KEY);
       const findIndex = localDiaryData.findIndex(
         (item) => item.diaryId === diaryDataObj.id
