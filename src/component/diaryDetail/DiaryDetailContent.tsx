@@ -1,6 +1,6 @@
 import { DiaryType } from "../../type/DiaryType";
 import styled from "styled-components";
-import { AddDiary, Home } from "../../router/routerPath";
+import { AddDiary } from "../../router/routerPath";
 import { useNavigate } from "react-router";
 import { getLocalStorageData, findItemIndex } from "../../utils/storage";
 import { DIARY_KEY } from "../../common/string";
@@ -13,6 +13,7 @@ interface PropsType {
 }
 
 const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
+  console.log("test");
   const [isClickButton, setIsClickButton] = useState(false);
   const [isToday, setIsToday] = useState(false);
   const navigate = useNavigate();
@@ -21,8 +22,8 @@ const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
 
   useEffect(() => {
     const todayDate = calculateTime();
-    if (todayDate === diaryDate) setIsToday(true);
-  });
+    if (todayDate.allDateStr === diaryDate.allDateStr) setIsToday(true);
+  }, [diaryDate]);
 
   const onToggleButton = () => {
     setIsClickButton(!isClickButton);
