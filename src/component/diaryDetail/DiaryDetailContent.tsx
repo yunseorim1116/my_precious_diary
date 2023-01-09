@@ -39,7 +39,7 @@ const DiaryDetailContent = ({ diaryData, goToListPage }: PropsType) => {
     const localDiaryData = getLocalStorageData(DIARY_KEY);
     const findIndex = findItemIndex(localDiaryData, diaryId);
     const commentData = localDiaryData[findIndex].commentData;
-    console.log(commentData);
+
     const diaryDataObj = {
       id: diaryId,
       emotionStatus: emotionStatus,

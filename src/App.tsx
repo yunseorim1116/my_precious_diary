@@ -6,6 +6,8 @@ import reset from "styled-reset";
 import DiaryListPage from "./views/DiaryListPage";
 import AddDiaryPage from "./views/AddDiaryPage";
 import DiaryDetailPage from "./views/DiaryDetailPage";
+import Canvas from "./Canvas";
+import { useEffect, useRef, useState } from "react";
 import "./font.css";
 function App() {
   const GlobalStyle = createGlobalStyle`
@@ -15,17 +17,21 @@ function App() {
   }
   ${reset}
 `;
+
   return (
     <div className="App">
       <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path={Home} element={<MainPage />} />
-          <Route path={AddDiary} element={<AddDiaryPage />} />
-          <Route path={DiaryList} element={<DiaryListPage />} />
-          <Route path={`${DiaryDetail}:id`} element={<DiaryDetailPage />} />
-        </Routes>
-      </BrowserRouter>
+      <div style={{ zIndex: "1", position: "relative" }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path={Home} element={<MainPage />} />
+            <Route path={AddDiary} element={<AddDiaryPage />} />
+            <Route path={DiaryList} element={<DiaryListPage />} />
+            <Route path={`${DiaryDetail}:id`} element={<DiaryDetailPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+      <Canvas />
     </div>
   );
 }
