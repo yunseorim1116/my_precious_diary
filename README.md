@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/94429667/210610478-c4f1f5c9-a194-43f1-800e-369134d2c0c0.png">
+<img src="https://user-images.githubusercontent.com/94429667/211339204-890b4da5-0d47-498b-958e-899cc9ba6033.gif">
 
 
 <h2>소중한 나의 감정 기록장 | 소나기</h2>
