@@ -14,6 +14,12 @@ npm install
 npm run start
 ```
 
+## 사용 기술 및 라이브러리
+
+```
+React / LocalStorage / TypeScript / Canvas / ReactAudioPlayer
+```
+
 ## 프로젝트 설명
 
 <img src="https://user-images.githubusercontent.com/94429667/211196022-6d0b48f7-7fb3-425b-a8ec-4fb6929d96b3.gif" width="550px"/>
