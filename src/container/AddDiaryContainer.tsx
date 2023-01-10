@@ -174,14 +174,14 @@ const DiaryContentWrap = styled.div`
 const DiaryContent = styled.textarea`
   font-family: "GangwonEdu_OTFBoldA";
   font-size: 18px;
-  padding: 20px 5px;
+  padding: 20px 10px;
   display: block;
   background-color: #f9f9f9;
   border: none;
   &:focus {
     outline: none;
   }
-  width: 500px;
+  width: 600px;
   height: 300px;
 `;
 

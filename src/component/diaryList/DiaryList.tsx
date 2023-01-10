@@ -38,12 +38,23 @@ const DiaryDate = styled.div`
 
 const DiaryContent = styled.div`
   text-align: left;
+  width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;
 
 const Title = styled.div`
+  width: 400px;
   font-family: "FlowerSalt";
   font-size: 28px;
   margin-top: 15px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
 `;
 
 const TitleWarp = styled.div`

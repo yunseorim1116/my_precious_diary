@@ -1,8 +1,8 @@
-import {randomBetween} from './randomBetween'
+import { randomBetween } from './randomBetween'
 
 
 export class Rain {
-    constructor(private x: number,private y: number,private velocity:{x:number,y:number}, private ctx :CanvasRenderingContext2D) {
+    constructor(private x: number,private y: number, private velocity:{x:number,y:number}, private ctx :CanvasRenderingContext2D) {
       //빗방울 생성자
       //x좌표,y좌표,속도
         this.x = x;

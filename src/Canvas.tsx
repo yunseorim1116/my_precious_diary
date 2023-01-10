@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Rain } from "./utils/Rain";
-import { randomBetween } from "./utils/randomBetween";
+import { Rain } from "./utils/canvas/Rain";
+import { randomBetween } from "./utils/canvas/randomBetween";
 
 const Canvas = () => {
   const canvasElem = useRef<HTMLCanvasElement | null>(null);
@@ -17,7 +17,7 @@ const Canvas = () => {
     let rains: Rain[] = []; //빗방울 객체를 만들 배열 추가
 
     const init = () => {
-      total = 50;
+      total = 80;
       rains = [];
 
       for (let i = 0; i < total; i++) {
