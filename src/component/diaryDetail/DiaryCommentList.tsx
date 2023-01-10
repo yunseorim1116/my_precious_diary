@@ -50,21 +50,29 @@ const DiaryCommentList = ({
 };
 
 const CommentDate = styled.span`
+  word-break: normal;
   margin-right: 18px;
   color: #c6c6c6;
 `;
 
-const CommentContent = styled.div`
-  font-size: 18px;
+const CommentContent = styled.p`
+  color: #4e4e4e;
+  text-align: left;
+  width: 600px;
+  font-size: 16px;
   margin-left: 30px;
   font-family: "GangwonEdu_OTFBoldA";
+  overflow: hidden;
+  word-wrap: break-word;
 `;
 
 const Button = styled.button`
+  margin-top: 8px;
   font-family: "FlowerSalt";
+  white-space: nowrap;
   cursor: pointer;
   padding: 5px 20px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   text-align: center;
   text-decoration: none;
@@ -82,7 +90,7 @@ const CommentContainer = styled.div`
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  padding: 15px 0px;
+  padding-top: 10px;
 `;
 
 export default DiaryCommentList;

@@ -11,7 +11,7 @@ const DiaryComment = ({ commentRef, addComment }: any) => {
 
 const CommentWrap = styled.form`
   background-color: #f9f9f9;
-  padding-top: 20px;
+  padding: 20px 0px;
   display: flex;
   justify-content: space-between;
 `;

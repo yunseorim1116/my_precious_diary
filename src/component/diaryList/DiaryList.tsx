@@ -47,6 +47,7 @@ const DiaryContent = styled.div`
 `;
 
 const Title = styled.div`
+  text-align: left;
   width: 400px;
   font-family: "FlowerSalt";
   font-size: 28px;
